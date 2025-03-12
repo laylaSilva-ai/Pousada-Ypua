@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pousada Quinta do Ypuã - Escolha o Pagamento</title>
+    
+   <style>
+    body{ 
+        background-color: rgba(0, 0, 0, 0.26);
+        font-size: 20px;
+    }
+   
+   a:hover {
+    text-decoration: underline;
+    color: #b33b2e; /* Muda a cor ao passar o mouse */
+     }
+
+   
+      button:hover {
+    background-color: #9e2d26;  /* Cor de fundo ao passar o mouse (mais escuro) */
+     }
+
+     form {
+        width: 50%;
+        max-width: 1200px;
+        margin: auto;
+        padding: 20px;
+        background-color: aliceblue;
+    }
+    
+    
+body {
+    font-family: Arial, sans-serif;
+    background-image: url('imagens/foto1.jpg');
+    background-size: cover;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+   </style>
+</head>
+<body>
+<form>
+    <h2>Escolha sua forma de pagamento</h2><br>
+    <a href="pix_corrigido.html">Pagamento via Pix</a><br><br>
+    <a href="pagamento_corrigido.html">Pagamento com Cartão</a><br><br>
+    <a href="dinheiro.html">Gerar Boleto</a><br><br>
+    <button onclick="window.location.href='reserva_corrigido.html'">Voltar para a Reserva</button>
+</div>
+
+</form>
+    <script>
+        // Função para redirecionamento após a reserva
+        window.onload = function() {
+            const valorTotal = localStorage.getItem('total');
+            if (!valorTotal) {
+                alert('Erro ao carregar dados da reserva!');
+                window.location.href = 'reserva_corrigido.html'; // Redireciona de volta para a página de reserva
+            }
+        }
+    </script>
+</body>
+</html>

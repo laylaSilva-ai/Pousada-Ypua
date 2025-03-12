@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pousada Quinta do Ypuã</title>
+    <link rel="stylesheet" href="reserva.css">
+</head>
+<body>
+<div class="container">
+    <header>
+        <h1>Pousada Quinta do Ypuã</h1>
+        <nav>
+            <ul>
+                <li><a href="home.html">Sobre</a></li>
+                <li><a href="quartos.html">Quartos</a></li>
+                <li><a href="contatos.html">Contatos</a></li>             
+                <li><a href="reserva_corrigido.html">Reserva Já</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Simulação da Reserva -->
+    <div class="container" id="step-1">
+        <h1>Venha viver<span> os melhores dias da </span> sua vida!</h1>
+        <br><label for="checkin">Check-in:</label>
+        <input type="date" id="checkin">
+        
+        <br><br><label for="checkout">Check-out:</label>
+        <input type="date" id="checkout">
+        
+        <br><br><label for="guests">Número de Hóspedes:</label>
+        <select id="guests">
+            <option value="1">1 Adulto</option>
+            <option value="2">2 Adultos</option>
+            <option value="3">3 Adultos</option>
+        </select>
+
+        <div id="total">
+           <br> Noite(s): <span id="nights">0</span> <br>
+           <br> Total: R$<span id="total-price">0</span>
+        </div>
+       <br> <button id="simulate-btn">Simular reserva</button>
+    </div>
+
+    <!-- Detalhes da Reserva -->
+    <div class="container" id="step-2" style="display: none;">
+        <h1>Detalhes do Hóspede</h1>
+        <form id="guest-form">
+            <p><strong>* Campos obrigatórios</strong></p>
+            <label for="name">Nome:*</label>
+            <input type="text" id="name" required>
+            
+            <br><br><label for="email">Email:*</label>
+            <input type="email" id="email" required>
+            
+           <br><br><label for="phone">Telefone:*</label>
+            <input type="tel" id="phone" required>
+            
+           <br><br><label for="special-requests">Pedidos Especiais:</label>
+            <br><textarea id="special-requests" rows="4"></textarea>
+
+            <h2>Resumo da Reserva</h2>
+            <p><b>Tipo de Acomodação:</b> Domo</p>
+            <p><b>Data:</b> <span id="summary-dates"></span></p>
+            <p><b>Número de Noites:</b> <span id="summary-nights"></span></p>
+            <p><b>Total:</b> R$<span id="summary-total"></span></p>
+            
+            <br><br><button type="button" id="proceed-to-payment">Continuar para o Pagamento</button>
+            
+      
+    <script>
+        // Simulação e navegação
+        document.getElementById('simulate-btn').addEventListener('click', () => {
+            const checkin = document.getElementById('checkin').value;
+            const checkout = document.getElementById('checkout').value;
+            const guests = document.getElementById('guests').value;
+
+            if (!checkin || !checkout) {
+                alert('Por favor, preencha as datas de Check-in e Check-out.');
+                return;
+            }
+
+            const checkinDate = new Date(checkin);
+            const checkoutDate = new Date(checkout);
+            const nights = (checkoutDate - checkinDate) / (1000 * 60 * 60 * 24);
+            if (nights <= 0) {
+                alert('A data de Check-out deve ser posterior ao Check-in.');
+                return;
+            }
+
+            const total = nights * 200; // Exemplo de preço por noite
+            document.getElementById('nights').textContent = nights;
+            document.getElementById('total-price').textContent = total;
+
+            localStorage.setItem('total', total);
+            localStorage.setItem('nights', nights);
+            localStorage.setItem('checkin', checkin);
+            localStorage.setItem('checkout', checkout);
+            localStorage.setItem('guests', guests);
+
+            document.getElementById('step-1').style.display = 'none';
+            document.getElementById('step-2').style.display = 'block';
+        });
+
+        document.getElementById('proceed-to-payment').addEventListener('click', () => {
+            window.location.href = 'pagamento.html';
+        });
+        // Redirecionar para a página de escolha de pagamento
+        document.getElementById('proceed-to-payment').addEventListener('click', () => {
+            window.location.href = 'escolha_pagamento.html'; // Redireciona para a página de escolha de pagamento
+        });
+    </script>
+    
+            
+</div>
+</body>
+</html>

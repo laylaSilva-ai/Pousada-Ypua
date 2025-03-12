@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Formulário de Pagamento</title>
+  <link rel="stylesheet" href="">
+</head>
+<body>
+  <div class="container">
+    <h1>Dados de pagamento</h1>
+    <form>
+      <p><strong>* Campos obrigatórios</strong></p>
+      <h3>Dados para Pix</h3>
+      <label for="codigo-pix">Código Pix:</label> 
+      <input type="text" id="codigo-pix" name="codigo-pix" value=" (48)99940-9732" readonly><br>         
+      <button type="button" onclick="copiarCodigoPix()">Copiar Código Pix</button><br>
+              </div>
+              <script>
+                  // Função para copiar o código Pix para a área de transferência
+    function copiarCodigoPix() {
+        const codigoPix = document.getElementById("codigo-pix");
+        codigoPix.select();
+        document.execCommand("copy");
+        alert("Código Pix copiado para a área de transferência!");
+    }
+</script>
+</body>
+</html>

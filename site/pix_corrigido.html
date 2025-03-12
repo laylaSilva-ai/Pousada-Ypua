@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pousada Quinta do Ypuã</title>
+</head>
+<style>
+     body{ 
+        background-color: rgba(0, 0, 0, 0.26);
+        font-size: 20px;
+    }
+</style>
+<body>
+    <h1>Dados de Pagamento</h1>
+
+    <form>
+        <p><strong>* Campos obrigatórios</strong></p>
+        <h3>Dados para Pix</h3>
+
+        <label for="valor-total">Valor Total:</label>
+        <input type="text" id="valor-total" name="valor-total" readonly><br><br>
+
+        <label for="codigo-pix">Código Pix:</label> 
+        <input type="text" id="codigo-pix" name="codigo-pix" value="(48)99940-9732" readonly><br><br>
+
+        <button type="button" onclick="copiarCodigoPix()">Copiar Código Pix</button><br>
+    </form>
+
+    <script>
+        // Preenche informações do Pix (valor total, etc.)
+        const valorPix = localStorage.getItem('total');
+        if (valorPix) {
+            // Preenche o campo de valor total
+            document.getElementById('valor-total').value = `R$ ${valorPix}`;
+
+            // Preenche o código Pix (com separação de valor e chave)
+            document.getElementById('codigo-pix').value = `(48)99940-9732`;
+        }
+
+        // Função para copiar o código Pix para a área de transferência
+        function copiarCodigoPix() {
+            const codigoPix = document.getElementById("codigo-pix");
+            codigoPix.select();
+            document.execCommand("copy");
+            alert("Código Pix copiado para a área de transferência!");
+        }
+
+        // Verificando o status do pagamento através da API do Stripe (após pagamento)
+const stripe = require('stripe')('seu_chave_secreta');
+
+async function verificarPagamento(paymentIntentId) {
+    const paymentIntent = await stripe.paymentIntents.retrieve(paymentIntentId);
+
+    if (paymentIntent.status === 'succeeded') {
+        console.log('Pagamento realizado com sucesso');
+        // Realize ações adicionais, como atualizar o status no banco de dados
+    } else {
+        console.log('Pagamento não realizado');
+    }
+}
+
+    </script>
+</body>
+</html>

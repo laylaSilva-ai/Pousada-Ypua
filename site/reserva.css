@@ -1,0 +1,184 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-image: url('imagens/foto1.jpg');
+    background-size: cover;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.container {
+    background-color: rgba(255, 255, 255, 0.9);
+    width: 85%;
+    margin: 0 auto;
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+}
+
+header {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+header h1 {
+    font-size: 2em;
+    color: #333;
+}
+nav ul {
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+}
+
+nav ul li {
+    margin: 0 10px;
+}
+
+nav ul li a {
+    text-decoration: none;
+    color: #bd2424;
+    font-weight: bold;
+}
+
+nav ul li a:hover {
+    color: #8b2727da;
+}
+
+ /* Banner Section */
+ .banner {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.banner-text {
+    background-color: #b33b2e;
+    color: white;
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40%;
+    border-radius: 8px; /* Arredondando as bordas do banner */
+}
+
+.banner-text h1 {
+    font-size: 1.5em;
+     margin: 0;
+}
+
+.banner-image img {
+    width: 100%;
+    height: auto;
+    border: 1px solid #ccc;
+    border-radius: 8px; /* Arredondando as bordas da imagem */
+    width: 60%;
+}
+
+
+
+
+.button {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+.button p {
+    font-size: 1.5em;
+    color: #b33b2e;
+}
+
+.button span {
+    font-size: 0.9em;
+    color: #666;
+}
+
+.button button {
+    margin-top: 10px;
+    padding: 8px 12px;
+    background-color: #b33b2e;
+    color: white;
+    border: none;
+    border-radius: 8px; /* Botões arredondados */
+    cursor: pointer;
+}
+
+.button:hover {
+    background-color: #9e2d26; /* Efeito hover no botão */
+}
+ 
+
+ /* Estilização do botão */
+#simulate-btn {
+     background-color: #9e2d26; /* Cor de fundo verde */
+     color: white; /* Cor do texto */
+     padding: 10px 20px; /* Padding interno para aumentar o tamanho do botão */
+     border: none; /* Remover borda */
+     border-radius: 5px; /* Bordas arredondadas */
+     font-size: 16px; /* Tamanho da fonte */
+     cursor: pointer; /* Cursor de mão ao passar o mouse */
+    
+ }
+
+  /* Efeito de hover no botão */
+#simulate-btn:hover {
+     background-color: #b33b2e; /* Cor do botão quando o mouse passa por cima */
+}
+
+ /* Estilização do div 'total' */
+ #total {
+     font-family: Arial, sans-serif;
+     margin-bottom: 20px;
+ }
+
+ #proceed-to-payment {
+    background-color: #9e2d26; /* Cor de fundo azul */
+    color: white; /* Cor do texto */
+    padding: 12px 25px; /* Padding interno para aumentar o tamanho do botão */
+    border: none; /* Remover borda */
+    border-radius: 5px; /* Bordas arredondadas */
+    font-size: 18px; /* Tamanho da fonte */
+    cursor: pointer; /* Cursor de mão ao passar o mouse */
+   
+}
+
+/* Efeito de hover no botão */
+#proceed-to-payment:hover {
+    background-color: #b33b2e; /* Cor de fundo mais escura quando o mouse passa */
+    transform: scale(0,8); /* Aumentar um pouco o tamanho do botão */
+}
+
+/* Estilização do botão "Finalizar Reserva" */
+button[type="submit"] {
+    background-color: #9e2d26; /* Cor de fundo verde */
+    color: white; /* Cor do texto */
+    padding: 8px 15px; /* Padding para aumentar o tamanho do botão */
+    border: none; /* Remover borda */
+    border-radius: 5px; /* Bordas arredondadas */
+    font-size: 18px; /* Tamanho da fonte */
+    cursor: pointer; /* Cursor de mão ao passar o mouse */
+   
+}
+
+/* Efeito de hover no botão */
+button[type="submit"]:hover {
+    background-color: #b33b2e; /* Cor mais escura quando o mouse passa */
+    transform: scale(0,8); /* Aumentar um pouco o tamanho do botão */
+}
+
+
+button[type="submit"]:focus {
+    outline: none; 
+    box-shadow: 0 0 10px rgba(167, 40, 61, 0.555); 
+}

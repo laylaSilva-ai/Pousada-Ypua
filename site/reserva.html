@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reserva de Pousada</title>
+    <link rel="stylesheet" href="reserva.css">
+    
+</head>
+<body>
+    
+<div class="container">
+    <header>
+        <h1>Pousada Quinta do Ypuã</h1>
+        <nav>
+            <ul>
+                <li><a href="home.html">Sobre</a></li>
+                <li><a href="quartos.html">Quartos</a></li>
+                <li><a href="contatos.html">Contatos</a></li>             
+                <li><a href="reserva.html">Reserva Já</a></li>
+            </ul>
+        </nav>
+    </header>
+    <!-- Página Inicial -->
+    <div class="container">
+        <div class="banner">
+            <div class="banner-text">
+                <h1>Reserve-se!</h1>
+            </div>
+    <div class="container" id="step-1">
+        <h1>Venha conhecer<span> nossa</span> pousada!</h1>
+        <br><label for="checkin">Check-in:</label>
+        <input type="date" id="checkin">
+        
+       <br><br> <label for="checkout">Check-out:</label>
+        <input type="date" id="checkout">
+        
+
+        <br><br><label for="guests">Número de Hóspedes:</label>
+        <select id="guests">
+            <option value="1">1 Adulto</option>
+            <option value="2">2 Adultos</option>
+            <option value="3">3 Adultos</option>
+        </select>
+
+        <div id="total">
+           <br> Noite(s): <span id="nights">0</span> <br>
+           <br> Total: R$<span id="total-price">0</span>
+        </div>
+       <br> <button id="simulate-btn">Simular reserva</button>
+    </div>
+
+    <!-- Página de Detalhes -->
+    <div class="container" id="step-2" style="display: none;">
+        
+        <h1>Detalhes do Hóspede</h1>
+        <form id="guest-form">
+            <p><strong>* Campos obrigatórios</strong></p>
+            <label for="name">Nome:*</label>
+            <input type="text" id="name" required>
+            
+            <br><br><label for="email">Email:*</label>
+            <input type="email" id="email" required>
+            
+           <br><br><label for="phone">Telefone:*</label>
+            <input type="tel" id="phone" required>
+            
+           <br><br><label for="special-requests">Pedidos Especiais:</label>
+            <br><textarea id="special-requests" rows="4"></textarea>
+
+            <h2>Resumo da Reserva</h2>
+            <p><b>Tipo de Acomodação:</b> Domo</p>
+            <p><b>Data:</b> <span id="summary-dates"></span></p>
+            <p><b>Número de Noites:</b> <span id="summary-nights"></span></p>
+            <p><b>Total:</b> R$<span id="summary-total"></span></p>
+            
+            <br><br><button type="button" id="proceed-to-payment">Continuar para o Pagamento</button>
+        </form>
+    </div>
+
+    <!-- Página de Pagamento -->
+    <div class="container" id="step-3" style="display: none;">
+        <h1>Escolha a Forma de Pagamento</h1>
+        <form id="payment-form">
+            <label>
+               <a href="http://127.0.0.1:5500/site/pix.html"><input type="radio" name="payment" value="pix" required> Pix
+            </label><br></a>
+            <label>
+             <a href="http://127.0.0.1:5500/site/pagamento.html"> <input type="radio" name="payment" value="cartao" required> Cartão de Crédito
+            </label><br></a>
+            <label>
+                <a href="http://127.0.0.1:5500/site/dinheiro.html"><input type="radio" name="payment" value="dinheiro" required> Dinheiro
+            </label><br></a>
+
+           
+        </form>
+    </div>
+
+    <script src="simula.js"></script>
+</body>
