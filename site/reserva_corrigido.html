@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pousada Quinta do Ypuã</title>
     <link rel="stylesheet" href="reserva.css">
+    <link rel="icon" type="image/png" href="img/Design sem nome.png">
 </head>
 <body>
 <div class="container">
@@ -20,7 +21,7 @@
         </nav>
     </header>
 
-    <!-- Simulação da Reserva -->
+   
     <div class="container" id="step-1">
         <h1>Venha viver<span> os melhores dias da </span> sua vida!</h1>
         <br><label for="checkin">Check-in:</label>
@@ -43,21 +44,24 @@
        <br> <button id="simulate-btn">Simular reserva</button>
     </div>
 
-    <!-- Detalhes da Reserva -->
+  
     <div class="container" id="step-2" style="display: none;">
         <h1>Detalhes do Hóspede</h1>
         <form id="guest-form">
-            <p><strong>* Campos obrigatórios</strong></p>
-            <label for="name">Nome:*</label>
+            <p><strong>*Campos obrigatórios*</strong></p>
+            <label for="name">Nome:</label>
             <input type="text" id="name" required>
             
-            <br><br><label for="email">Email:*</label>
+            <br><br><label for="email">Email:</label>
             <input type="email" id="email" required>
             
-           <br><br><label for="phone">Telefone:*</label>
-            <input type="tel" id="phone" required>
-            
-           <br><br><label for="special-requests">Pedidos Especiais:</label>
+            <br><br><label for="telefone">Telefone:</label>
+            <div class="telefone">
+            <input type="text" id="ddd" name="ddd" placeholder="DDD" maxlength="3" required>
+            <input type="text" id="telefone" name="telefone" placeholder="Telefone" maxlength="10" required>
+            </div>
+
+           <br><label for="special-requests">Pedidos Especiais:</label>
             <br><textarea id="special-requests" rows="4"></textarea>
 
             <h2>Resumo da Reserva</h2>

@@ -10,22 +10,22 @@ body {
     height: 100vh;
 }
 
-/* Container do formulário */
+
 form {
     background-color: #ffffff;
     border-radius: 8px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     padding: 20px;
-    width: 500px; /* Definindo largura fixa */
-    height: 800px; /* Tornando um quadrado */
+    width: 500px; 
+    height: 800px; 
     display: flex;
     flex-direction: column;
-    justify-content: center; /* Centraliza o conteúdo verticalmente */
-    align-items: center; /* Centraliza o conteúdo horizontalmente */
+    justify-content: center; 
+    align-items: center; 
     box-sizing: border-box;
 }
 
-/* Título do formulário */
+
 h1 {
     font-size: 1.5em;
     margin-bottom: 20px;
@@ -33,7 +33,7 @@ h1 {
     color: #444;
 }
 
-/* Estilo dos rótulos */
+
 label {
     display: block;
     font-weight: bold;
@@ -41,7 +41,7 @@ label {
     color: #555;
 }
 
-/* Estilo dos campos de entrada */
+
 input[type="text"],
 input[type="number"] {
     width: 90%;
@@ -68,7 +68,7 @@ button:hover {
     background-color: #9e2d26;
 }
 
-/* Seção de resultados */
+
 #resultados {
     margin-top: 20px;
     text-align: center;

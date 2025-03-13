@@ -54,7 +54,7 @@ nav ul li a:hover {
     color: #8b2727da;
 }
 
- /* Banner Section */
+
  .banner {
     display: flex;
     gap: 10px;
@@ -69,7 +69,7 @@ nav ul li a:hover {
     align-items: center;
     justify-content: center;
     width: 40%;
-    border-radius: 8px; /* Arredondando as bordas do banner */
+    border-radius: 8px; 
 }
 
 .banner-text h1 {
@@ -81,7 +81,7 @@ nav ul li a:hover {
     width: 100%;
     height: auto;
     border: 1px solid #ccc;
-    border-radius: 8px; /* Arredondando as bordas da imagem */
+    border-radius: 8px; 
     width: 60%;
 }
 
@@ -110,71 +110,70 @@ nav ul li a:hover {
     background-color: #b33b2e;
     color: white;
     border: none;
-    border-radius: 8px; /* Botões arredondados */
+    border-radius: 8px;
     cursor: pointer;
 }
 
 .button:hover {
-    background-color: #9e2d26; /* Efeito hover no botão */
+    background-color: #9e2d26; 
 }
  
 
- /* Estilização do botão */
+
 #simulate-btn {
-     background-color: #9e2d26; /* Cor de fundo verde */
-     color: white; /* Cor do texto */
-     padding: 10px 20px; /* Padding interno para aumentar o tamanho do botão */
-     border: none; /* Remover borda */
-     border-radius: 5px; /* Bordas arredondadas */
-     font-size: 16px; /* Tamanho da fonte */
-     cursor: pointer; /* Cursor de mão ao passar o mouse */
-    
+     background-color: #9e2d26; 
+     color: white; 
+     padding: 10px 20px; 
+     border: none;
+     border-radius: 5px; 
+     font-size: 16px; 
+     cursor: pointer; 
  }
 
-  /* Efeito de hover no botão */
-#simulate-btn:hover {
-     background-color: #b33b2e; /* Cor do botão quando o mouse passa por cima */
-}
 
- /* Estilização do div 'total' */
+#simulate-btn:hover {
+     background-color: #b33b2e; 
+}
+ 
+
  #total {
      font-family: Arial, sans-serif;
      margin-bottom: 20px;
  }
 
  #proceed-to-payment {
-    background-color: #9e2d26; /* Cor de fundo azul */
-    color: white; /* Cor do texto */
-    padding: 12px 25px; /* Padding interno para aumentar o tamanho do botão */
-    border: none; /* Remover borda */
-    border-radius: 5px; /* Bordas arredondadas */
-    font-size: 18px; /* Tamanho da fonte */
-    cursor: pointer; /* Cursor de mão ao passar o mouse */
+    background-color: #9e2d26; 
+    color: white; 
+    padding: 12px 25px; 
+    border: none; 
+    border-radius: 5px; 
+    font-size: 18px; 
+    cursor: pointer; 
    
 }
 
-/* Efeito de hover no botão */
+
 #proceed-to-payment:hover {
-    background-color: #b33b2e; /* Cor de fundo mais escura quando o mouse passa */
-    transform: scale(0,8); /* Aumentar um pouco o tamanho do botão */
-}
-
-/* Estilização do botão "Finalizar Reserva" */
-button[type="submit"] {
-    background-color: #9e2d26; /* Cor de fundo verde */
-    color: white; /* Cor do texto */
-    padding: 8px 15px; /* Padding para aumentar o tamanho do botão */
-    border: none; /* Remover borda */
-    border-radius: 5px; /* Bordas arredondadas */
-    font-size: 18px; /* Tamanho da fonte */
-    cursor: pointer; /* Cursor de mão ao passar o mouse */
+    background-color: #b33b2e;
    
 }
 
-/* Efeito de hover no botão */
+
+button[type="submit"] {
+    background-color: #9e2d26; 
+    color: white;
+    padding: 8px 15px; 
+    border: none; 
+    border-radius: 5px; 
+    font-size: 18px; 
+    cursor: pointer; 
+   
+}
+
+
 button[type="submit"]:hover {
-    background-color: #b33b2e; /* Cor mais escura quando o mouse passa */
-    transform: scale(0,8); /* Aumentar um pouco o tamanho do botão */
+    background-color: #b33b2e; 
+  
 }
 
 
@@ -182,3 +181,4 @@ button[type="submit"]:focus {
     outline: none; 
     box-shadow: 0 0 10px rgba(167, 40, 61, 0.555); 
 }
+
