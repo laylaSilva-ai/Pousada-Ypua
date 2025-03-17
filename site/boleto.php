@@ -8,19 +8,19 @@ use PHPMailer\PHPMailer\Exception;
 header("Access-Control-Allow-Origin: *");
 header("Content-Type: application/json");
 
-// Estabelecendo conexão com o banco de dados
+// Conexão com o banco de dados
 $servername = "localhost";
-$username = "root"; // Substitua com seu nome de usuário do banco
-$password = ""; // Substitua com sua senha do banco
-$dbname = "viagens"; // Substitua com o nome do seu banco de dados
+$username = "root";
+$password = "";
+$dbname = "viagens";
 
 $conn = new mysqli($servername, $username, $password, $dbname);
 
 if ($conn->connect_error) {
-    die("Conexão falhou: " . $conn->connect_error);
+    die(json_encode(["success" => false, "message" => "Erro na conexão com o banco: " . $conn->connect_error]));
 }
 
-// Recebendo dados da requisição
+// Recebendo os dados da requisição
 $data = json_decode(file_get_contents("php://input"), true);
 
 if (!isset($data['email']) || !isset($data['pdf'])) {
@@ -35,13 +35,14 @@ $pdfBase64 = $data['pdf'];
 $pdfContent = explode(",", $pdfBase64)[1];
 $pdfBinary = base64_decode($pdfContent);
 
-// Preparando a consulta para inserir no banco de dados
-$stmt = $conn->prepare("INSERT INTO boletos (id, email, pdf) VALUES (?, ?)");
-$stmt->bind_param("sb", $email, $pdfBinary);
+// Inserindo no banco de dados corretamente
+$stmt = $conn->prepare("INSERT INTO boletos (email, pdf) VALUES (?, ?)");
+$stmt->bind_param("s", $email);
+$stmt->send_long_data(1, $pdfBinary);
 $stmt->execute();
 $stmt->close();
 
-// Enviando o e-mail com o PHPMailer
+// Configurando o PHPMailer
 $mail = new PHPMailer(true);
 
 try {
@@ -49,7 +50,7 @@ try {
     $mail->Host = 'smtp.gmail.com';
     $mail->SMTPAuth = true;
     $mail->Username = 'juliamedeiroschaves043@gmail.com'; 
-    $mail->Password = 'mnluolmzqopckape';         
+    $mail->Password = 'mnluolmzqopckape';  
     $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
     $mail->Port = 587;
 
@@ -73,6 +74,7 @@ try {
     echo json_encode(["success" => false, "message" => "Erro ao enviar o e-mail: {$mail->ErrorInfo}"]);
 }
 
-// Fechando a conexão com o banco
+// Fechando a conexão
 $conn->close();
 ?>
+

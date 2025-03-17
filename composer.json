@@ -1,5 +1,17 @@
 {
+    "name": "aluno/pousada-ypua",
+    "autoload": {
+        "psr-4": {
+            "Aluno\\PousadaYpua\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "laylasilva-ai",
+            "email": "laylasilva1342@gmail.com"
+        }
+    ],
     "require": {
-        "efipay/sdk-php-apis-efi": "^1.12"
+        "phpmailer/phpmailer": "^6.9"
     }
 }
