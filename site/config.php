@@ -1,8 +1,11 @@
 <?php
-    $dbHost = 'localhost';
-    $dbUsername = 'root';
-    $dbPassword = '';
-    $dbName = 'viagens';
+$access_token = "APP_USR-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx";
+$servername = "localhost";
+$username = "root";
+$password = "";
+$dbname = "pousada_ypua";
 
-    $conexao = new mysqli($dbHost,$dbUsername,$dbPassword,$dbName);
-?>
+$conn = new mysqli($servername, $username, $password, $dbname);
+if ($conn->connect_error) {
+    die("Erro ao conectar no banco de dados: " . $conn->connect_error);
+}

@@ -1,0 +1,41 @@
+<?php return array(
+    'root' => array(
+        'name' => 'aluno/pousada-ypua',
+        'pretty_version' => 'dev-main',
+        'version' => 'dev-main',
+        'reference' => 'eebd107c78bf07b83bc6eaa2411181e5d77b2df1',
+        'type' => 'library',
+        'install_path' => __DIR__ . '/../../',
+        'aliases' => array(),
+        'dev' => true,
+    ),
+    'versions' => array(
+        'aluno/pousada-ypua' => array(
+            'pretty_version' => 'dev-main',
+            'version' => 'dev-main',
+            'reference' => 'eebd107c78bf07b83bc6eaa2411181e5d77b2df1',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../../',
+            'aliases' => array(),
+            'dev_requirement' => false,
+        ),
+        'mercadopago/sdk' => array(
+            'pretty_version' => 'v0.5.6',
+            'version' => '0.5.6.0',
+            'reference' => '67f65735d5d720a7fc2569163f5c7d150adc613d',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../mercadopago/sdk',
+            'aliases' => array(),
+            'dev_requirement' => false,
+        ),
+        'phpmailer/phpmailer' => array(
+            'pretty_version' => 'v6.10.0',
+            'version' => '6.10.0.0',
+            'reference' => 'bf74d75a1fde6beaa34a0ddae2ec5fce0f72a144',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../phpmailer/phpmailer',
+            'aliases' => array(),
+            'dev_requirement' => false,
+        ),
+    ),
+);

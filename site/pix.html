@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pagamento via MercadoPago</title>
+</head>
+<body>
+    <h2>Pagamento via Pix</h2>
+
+    <form action="processa_pix.php" method="POST">
+        <label for="email">E-mail do Cliente:</label><br>
+        <input type="email" id="email" name="email" required><br><br>
+        
+        <label for="valor">Valor:</label><br>
+        <input type="text" name="valor" required placeholder="Ex: 0,10">
+        <br><br>
+        
+        <button type="submit">Pagar</button>
+    </form>
+</body>
+</html>
