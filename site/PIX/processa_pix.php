@@ -91,7 +91,7 @@ if (isset($response_data['point_of_interaction']['transaction_data']['qr_code_ba
     $codigo_pix = $response_data['point_of_interaction']['transaction_data']['qr_code'];
 
     echo '<h3>Escaneie o QR Code com seu app bancário:</h3>';
-echo '<img id="qrCodeImage" src="data:image/png;base64,' . $qr_code_base64 . '" alt="QR Code Pix" width="300" height="300">';
+echo '<img id="qrCodeImage" src="data:image/png;base64,' . $qr_code_base64 . '" alt="QR Code Pix" width="300" height="300" ;>';
 echo '<p id="countdown">Tempo restante: 2:00</p>';
 echo '<div id="statusPagamento" style="margin-top:15px; font-weight:bold; font-size: 20px;"></div>';
 echo '<button id="payButton" disabled style="margin-top: 10px;">Pagamento não disponível após expiração</button>';
