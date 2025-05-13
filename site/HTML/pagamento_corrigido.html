@@ -6,133 +6,191 @@
     <title>Pousada Quinta do Ypuã</title>
     <link rel="stylesheet" href="/site/CSS/pagamento.css">
     <link rel="icon" type="image/png" href="/site/img/Design sem nome.png ">
-    <style>
-        /* Estilo para exibir a bandeira do cartão */
-        #bandeira-img {
-            width: 50px; /* Ajuste o tamanho da imagem */
-            height: auto;
+      <style>
+        body {
+          font-family: Arial, sans-serif;
+          background: linear-gradient(to right, #f4f4f4, #d3d3d3);
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          min-height: 100vh;
+          margin: 0;
         }
-        body{ 
-        background-color: rgba(0, 0, 0, 0.26);
-        font-size: 20px;
-    }
-    form{
-        background-color: rgba(0, 0, 0, 0.26);
-        font-size: 20px;
-    }
-    </style>
-</head>
-<body>
-
+    
+        form {
+          background: #fff;
+          padding: 30px;
+          border-radius: 15px;
+          box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+          max-width: 500px;
+          width: 100%;
+        }
+    
+        h1, h2 {
+          text-align: center;
+          color: #333;
+        }
+    
+        label {
+          display: block;
+          margin-top: 15px;
+          color: #333;
+        }
+    
+        input {
+          width: 100%;
+          padding: 10px;
+          margin-top: 5px;
+          border: 1px solid #ccc;
+          border-radius: 8px;
+        }
+    
+        button {
+          margin-top: 20px;
+          width: 100%;
+          padding: 12px;
+          background-color: #28a745;
+          color: white;
+          font-size: 16px;
+          border: none;
+          border-radius: 8px;
+          cursor: pointer;
+          transition: background-color 0.3s ease;
+        }
+    
+        button:hover {
+          background-color: #218838;
+        }
+    
+        #bandeira-img {
+          width: 50px;
+          vertical-align: middle;
+          margin-left: 10px;
+        }
+    
+        #resultado {
+          margin-top: 20px;
+          background-color: #f8f9fa;
+          padding: 15px;
+          border-radius: 8px;
+          color: #333;
+        }
+    
+        .erro {
+          color: red;
+          font-size: 14px;
+          margin-top: 5px;
+        }
+      </style>
+    </head>
+    <body>
+    
     <form>
-    <h1>Pagamento com Cartão</h1>
-
-    <label for="valor">Valor Total (R$):</label>
-    <input type="number" id="valor" placeholder="Digite o valor" readonly>
-
-    <label for="parcelas">Número de Parcelas:</label>
-    <input type="number" id="parcelas" placeholder="Ex.: 12">
-
-    <label for="juros">Taxa de Juros Mensal (%):</label>
-    <input type="number" id="juros" placeholder="Ex.: 2">
-
-    <label for="numeroCartao">Número do Cartão: <img id="bandeira-img" src="" alt="Bandeira do Cartão" /></label> 
-    <input type="text" id="numeroCartao" maxlength="16" placeholder="Digite o número do cartão" oninput="verificarBandeira()">  <br>
-
-
-    <label for="cvv">CVV:</label>
-    <input type="number" id="cvv" maxlength="3" placeholder="Digite o CVV">
-
-    <label for="validade">Data de Validade (MM/AA):</label>
-    <input type="text" id="validade" maxlength="5" placeholder="Ex.: 12/24">
-
-    <button onclick="calcular()">Calcular</button>
-
-    <h2>Resultados:</h2>
-    <p id="resultado"></p>
-
-  
+      <h1>Pagamento com Cartão</h1>
+    
+      <label for="valor">Valor Total (R$):</label>
+      <input type="number" id="valor" readonly>
+    
+      <label for="parcelas">Número de Parcelas:</label>
+      <input type="number" id="parcelas" placeholder="Ex: 12">
+    
+      <label for="juros">Taxa de Juros Mensal (%):</label>
+      <input type="number" id="juros" placeholder="Ex: 2">
+    
+      <label for="numeroCartao">Número do Cartão:
+        <img id="bandeira-img" src="" alt="Bandeira" />
+      </label>
+      <input type="text" id="numeroCartao" maxlength="16" placeholder="Digite o número" oninput="verificarBandeira()">
+    
+      <label for="cvv">CVV:</label>
+      <input type="text" id="cvv" maxlength="3" placeholder="Ex: 123">
+    
+      <label for="validade">Validade (MM/AA):</label>
+      <input type="text" id="validade" maxlength="5" placeholder="Ex: 12/26">
+    
+      <button type="button" onclick="calcular()">Calcular</button>
+    
+      <h2>Resultado</h2>
+      <div id="resultado"></div>
+    </form>
     
     <script>
-        // Função para preencher automaticamente o valor total na página de pagamento
-        function preencherValorTotal() {
-            
-    const valorTotal = localStorage.getItem('total');
-    const nights = localStorage.getItem('nights');
-    const checkin = localStorage.getItem('checkin');
-    const checkout = localStorage.getItem('checkout');
-
-    // Exibe as informações no console para debugging
-    console.log(`Total: ${valorTotal}, Noites: ${nights}, Check-in: ${checkin}, Check-out: ${checkout}`);
-     // Recupera o valor armazenado
-            if (valorTotal) {
-                document.getElementById('valor').value = valorTotal; // Preenche o campo com o valor
-            }
+      window.onload = () => {
+        const valorTotal = localStorage.getItem('total');
+        if (valorTotal) {
+          document.getElementById('valor').value = valorTotal;
         }
-
-        // Chama a função ao carregar a página de pagamento
-        window.onload = preencherValorTotal;
+      };
     
-
-        // Função de cálculo das parcelas
-        function calcular() {
-            const valor = parseFloat(document.getElementById("valor").value);
-            const parcelas = parseInt(document.getElementById("parcelas").value);
-            const juros = parseFloat(document.getElementById("juros").value) / 100;
-
-            if (!valor || !parcelas) {
-                alert("Por favor, preencha todos os campos!");
-                return;
-            }
-
-            let resultado = "";
-            if (juros > 0) {
-                const parcela = valor * (juros / (1 - Math.pow(1 + juros, -parcelas)));
-                const total = parcela * parcelas;
-                const totalJuros = total - valor;
-
-                resultado = `
-                    Valor da Parcela: R$ ${parcela.toFixed(2)}<br>
-                    Total com Juros: R$ ${total.toFixed(2)}<br>
-                    Total de Juros: R$ ${totalJuros.toFixed(2)}
-                `;
-            } else {
-                const parcela = valor / parcelas;
-
-                resultado = `
-                    Valor da Parcela: R$ ${parcela.toFixed(2)}<br>
-                    Total: R$ ${valor.toFixed(2)}<br>
-                    Sem Juros Aplicados.
-                `;
-            }
-            document.getElementById("resultado").innerHTML = resultado;
+      function verificarBandeira() {
+        const numero = document.getElementById("numeroCartao").value;
+        let imagem = "";
+    
+        if (/^4/.test(numero)) imagem = "img/visa.png";
+        else if (/^5/.test(numero)) imagem = "img/mastercard.png";
+        else if (/^3/.test(numero)) imagem = "img/amex.png";
+        else if (/^6/.test(numero)) imagem = "img/discover.png";
+        else imagem = "";
+    
+        document.getElementById("bandeira-img").src = imagem;
+      }
+    
+      function calcular() {
+        const valor = parseFloat(document.getElementById("valor").value);
+        const parcelas = parseInt(document.getElementById("parcelas").value);
+        const juros = parseFloat(document.getElementById("juros").value) / 100;
+        const numeroCartao = document.getElementById("numeroCartao").value;
+        const cvv = document.getElementById("cvv").value;
+        const validade = document.getElementById("validade").value;
+        const resultadoEl = document.getElementById("resultado");
+    
+        // Validações simples
+        if (!parcelas || parcelas <= 0 || parcelas > 24) {
+          resultadoEl.innerHTML = `<p class="erro">Número de parcelas inválido. Máx: 24</p>`;
+          return;
         }
-
-        // Função para verificar a bandeira do cartão com base no número
-        function verificarBandeira() {
-            const numeroCartao = document.getElementById("numeroCartao").value;
-            let bandeira = "Não detectada";
-            let imagem = "";
-
-            if (/^4/.test(numeroCartao)) {
-                bandeira = "Visa";
-                imagem = "img/visa.png"; // Caminho da imagem
-            } else if (/^5/.test(numeroCartao)) {
-                bandeira = "MasterCard";
-                imagem = "img/mastecard.png"; // Caminho da imagem
-            } else if (/^3/.test(numeroCartao)) {
-                bandeira = "American Express";
-                imagem = "img/amex.png"; // Caminho da imagem
-            } else if (/^6/.test(numeroCartao)) {
-                bandeira = "Discover";
-                imagem = "img/discover.png"; // Caminho da imagem
-            }
-
-            // Atualiza o texto e a imagem da bandeira
-            alert(`Bandeira do cartão: ${bandeira}`);
-            document.getElementById("bandeira-img").src = imagem;
+        if (isNaN(valor) || valor <= 0) {
+          resultadoEl.innerHTML = `<p class="erro">Valor total inválido.</p>`;
+          return;
         }
+        if (numeroCartao.length < 13 || !/^\d+$/.test(numeroCartao)) {
+          resultadoEl.innerHTML = `<p class="erro">Número do cartão inválido.</p>`;
+          return;
+        }
+        if (!/^\d{3}$/.test(cvv)) {
+          resultadoEl.innerHTML = `<p class="erro">CVV inválido.</p>`;
+          return;
+        }
+        if (!/^\d{2}\/\d{2}$/.test(validade)) {
+          resultadoEl.innerHTML = `<p class="erro">Validade no formato MM/AA.</p>`;
+          return;
+        }
+    
+        // Cálculo
+        let resultado = "";
+        if (juros > 0) {
+          const parcela = valor * (juros / (1 - Math.pow(1 + juros, -parcelas)));
+          const total = parcela * parcelas;
+          const totalJuros = total - valor;
+    
+          resultado = `
+            Valor da Parcela: R$ ${parcela.toFixed(2)}<br>
+            Total com Juros: R$ ${total.toFixed(2)}<br>
+            Juros Totais: R$ ${totalJuros.toFixed(2)}
+          `;
+        } else {
+          const parcela = valor / parcelas;
+          resultado = `
+            Valor da Parcela: R$ ${parcela.toFixed(2)}<br>
+            Total: R$ ${valor.toFixed(2)}<br>
+            Sem Juros
+          `;
+        }
+    
+        resultadoEl.innerHTML = resultado;
+      }
     </script>
-    </form>
-</body>
-</html>
+    
+    </body>
+    </html>
+    

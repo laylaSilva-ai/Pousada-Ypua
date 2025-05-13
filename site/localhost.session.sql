@@ -1,3 +1,3 @@
-use viagens;
+use pousada_ypua;
 
-select * from boletos;
+select * from pagamentos;

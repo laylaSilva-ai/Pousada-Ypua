@@ -66,7 +66,7 @@
             <br><textarea id="special-requests" rows="4"></textarea>
 
             <h2>Resumo da Reserva</h2>
-            <p><b>Tipo de Acomodação:</b> Domo</p>
+            <p><b>Tipo de Acomodação:</b> </p>
             <p><b>Data:</b> <span id="summary-dates"></span></p>
             <p><b>Número de Noites:</b> <span id="summary-nights"></span></p>
             <p><b>Total:</b> R$<span id="summary-total"></span></p>
@@ -108,11 +108,15 @@
             document.getElementById('step-2').style.display = 'block';
         });
 
+     
+       
         document.getElementById('proceed-to-payment').addEventListener('click', () => {
-            window.location.href = 'pagamento.html';
-        });
+        const email = document.getElementById('email').value;
+        const total = localStorage.getItem('total');
+
+        localStorage.setItem('email', email);
+        localStorage.setItem('valor', total);
         // Redirecionar para a página de escolha de pagamento
-        document.getElementById('proceed-to-payment').addEventListener('click', () => {
             window.location.href = 'escolha_pagamento.html'; // Redireciona para a página de escolha de pagamento
         });
     </script>

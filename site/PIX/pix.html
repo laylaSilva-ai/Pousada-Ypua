@@ -88,11 +88,21 @@
         <input type="email" id="email" name="email" required><br><br>
         
         <label for="valor">Valor:</label><br>
-        <input type="text" name="valor" required placeholder="Ex: 0.10">
+        <input type="text" id="valor" name="valor" required placeholder="Ex: 0.10">
         <br><br>
         
         <button type="submit">Pagar</button>
     </form>
     </div>
+    <script>
+        // Preencher os campos automaticamente com localStorage
+        window.onload = () => {
+          const email = localStorage.getItem('email');
+          const valor = localStorage.getItem('valor');
+      
+          if (email) document.getElementById('email').value = email;
+          if (valor) document.getElementById('valor').value = valor;
+        };
+      </script>
 </body>
 </html>
