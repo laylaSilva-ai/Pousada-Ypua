@@ -62,71 +62,122 @@ curl_setopt($ch, CURLOPT_HTTPHEADER, [
 ]);
 
 $response = curl_exec($ch);
-if(curl_errno($ch)) {
+
+if (curl_errno($ch)) {
     echo 'Erro cURL: ' . curl_error($ch);
+    curl_close($ch);
     exit;
 }
+
 curl_close($ch);
 
 $response_data = json_decode($response, true);
 
+// Verifica se houve erro na resposta da API
+if (!isset($response_data['id'])) {
+    echo "Erro ao gerar pagamento: resposta inválida da API Mercado Pago.";
+    exit;
+}
+
+// Salva o ID real da transação
+$mp_payment_id = $response_data['id'];
+
+$stmt = $conn->prepare("UPDATE pagamentos SET mp_payment_id=? WHERE id=?");
+$stmt->bind_param("si", $mp_payment_id, $payment_id);
+$stmt->execute();
+// Exibe QR Code e Código Pix (Copia e Cola)
 if (isset($response_data['point_of_interaction']['transaction_data']['qr_code_base64'])) {
     $qr_code_base64 = $response_data['point_of_interaction']['transaction_data']['qr_code_base64'];
+    $codigo_pix = $response_data['point_of_interaction']['transaction_data']['qr_code'];
+
     echo '<h3>Escaneie o QR Code com seu app bancário:</h3>';
-    echo '<img id="qrCodeImage" src="data:image/png;base64,' . $qr_code_base64 . '" alt="QR Code Pix" width="300" height="300">';
-    echo '<p id="countdown">Tempo restante: 2:00</p>';
-    echo '<button id="payButton" disabled>Pagamento não disponível após expiração</button>';
+echo '<img id="qrCodeImage" src="data:image/png;base64,' . $qr_code_base64 . '" alt="QR Code Pix" width="300" height="300">';
+echo '<p id="countdown">Tempo restante: 2:00</p>';
+echo '<div id="statusPagamento" style="margin-top:15px; font-weight:bold; font-size: 20px;"></div>';
+echo '<button id="payButton" disabled style="margin-top: 10px;">Pagamento não disponível após expiração</button>';
 
-    echo '<script>
-        var minutes = 2;
-        var seconds = 0;
-        var countdownElement = document.getElementById("countdown");
-        var qrCodeElement = document.getElementById("qrCodeImage");
-        var payButton = document.getElementById("payButton");
-        
-        var interval = setInterval(function() {
-            if (seconds === 0) {
-                if (minutes === 0) {
-                    clearInterval(interval);
-                    countdownElement.innerHTML = "QR Code expirado!";
-                    payButton.disabled = true;
-                    qrCodeElement.style.display = "none";
-                    alert("O QR Code expirou! Por favor, gere um novo.");
-                } else {
-                    minutes--;
-                    seconds = 59;
-                }
+// Copia e Cola com ID
+echo '<div id="areaPix" style="margin-top:30px;">';
+echo '<h4>Não conseguiu escanear o QR Code?</h4>';
+echo '<p>Copie o código Pix abaixo e cole no seu app bancário:</p>';
+echo '<textarea id="codigoPix" rows="4" style="width:100%; border-radius:8px; padding:10px;" readonly>' . $codigo_pix . '</textarea>';
+echo '<button onclick="copiarPix()" style="margin-top:10px;">📋 Copiar código Pix</button>';
+echo '</div>';
+
+echo "<script>
+    var minutes = 2;
+    var seconds = 0;
+    var countdownElement = document.getElementById('countdown');
+    var qrCodeElement = document.getElementById('qrCodeImage');
+    var payButton = document.getElementById('payButton');
+    var statusDiv = document.getElementById('statusPagamento');
+    var areaPix = document.getElementById('areaPix');
+
+    var interval = setInterval(function() {
+        if (seconds === 0) {
+            if (minutes === 0) {
+                clearInterval(interval);
+                countdownElement.innerHTML = 'QR Code expirado!';
+                payButton.disabled = true;
+                qrCodeElement.style.display = 'none';
+                statusDiv.innerHTML = '⏰ O QR Code expirou! Por favor, gere um novo.';
+                areaPix.style.display = 'none';
+                return;
             } else {
-                seconds--;
+                minutes--;
+                seconds = 59;
             }
-            countdownElement.innerHTML = "Tempo restante: " + minutes + ":" + (seconds < 10 ? "0" + seconds : seconds);
-        }, 1000);
-    </script>';
+        } else {
+            seconds--;
+        }
+        countdownElement.innerHTML = 'Tempo restante: ' + minutes + ':' + (seconds < 10 ? '0' + seconds : seconds);
+    }, 1000);
 
-} else {
-    echo "Erro: QR Code não disponível.";
-}
+    // Verificação automática de status
+    const id = '$mp_payment_id';
+    const statusCheck = setInterval(() => {
+        fetch('verificar_status.php?id=' + id)
+            .then(res => res.json())
+            .then(data => {
+                if (data.status === 'approved') {
+                    clearInterval(statusCheck);
+                    clearInterval(interval);
+                    countdownElement.innerHTML = '';
+                    statusDiv.innerHTML = '✅ Pagamento aprovado!';
+                    statusDiv.style.fontSize = '32px';
+                    statusDiv.style.color = 'green';
+                    qrCodeElement.style.display = 'none';
+                    areaPix.style.display = 'none';
+                    payButton.disabled = true;
+                } else if (data.status === 'rejected') {
+                    clearInterval(statusCheck);
+                    clearInterval(interval);
+                    statusDiv.innerHTML = '❌ Pagamento rejeitado.';
+                    qrCodeElement.style.display = 'none';
+                    areaPix.style.display = 'none';
+                    payButton.disabled = true;
+                } else if (data.status === 'cancelled' || data.status === 'expired') {
+                    clearInterval(statusCheck);
+                    clearInterval(interval);
+                    statusDiv.innerHTML = '⚠️ Pagamento expirado ou cancelado.';
+                    qrCodeElement.style.display = 'none';
+                    areaPix.style.display = 'none';
+                    payButton.disabled = true;
+                }
+            });
+    }, 5000);
 
-// Verificando o status do pagamento
-if (isset($response_data['status'])) {
-    $status = $response_data['status']; // Aqui você obtém o status do pagamento
-
-    // Atualizar o banco de dados com o status
-    $stmt = $conn->prepare("UPDATE pagamentos SET status=? WHERE id=?");
-    $stmt->bind_param("si", $status, $payment_id);
-    $stmt->execute();
-
-    // Exibir a mensagem no frontend
-    if ($status == 'approved') {
-        echo "<p>Pagamento realizado com sucesso!</p>";
-    } elseif ($status == 'rejected') {
-        echo "<p>Pagamento rejeitado! Tente novamente.</p>";
-    } else {
-        echo "<p>Aguardando pagamento... Aguarde confirmação.</p>";
+    function copiarPix() {
+        var texto = document.getElementById('codigoPix');
+        texto.select();
+        texto.setSelectionRange(0, 99999);
+        document.execCommand('copy');
+        alert('Código Pix copiado com sucesso!');
     }
-} else {
-    echo "Erro ao comunicar com a API MercadoPago.";
-}
+</script>";
 
+} else {
+    echo "Erro ao gerar QR Code: " . $response_data['message'];
+}    
 $conn->close();
 ?>
