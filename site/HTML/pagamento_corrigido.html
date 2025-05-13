@@ -3,136 +3,636 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pousada Quinta do Ypuã</title>
-    <link rel="stylesheet" href="/site/CSS/pagamento.css">
-    <link rel="icon" type="image/png" href="/site/img/Design sem nome.png ">
+    <title>Pousada Quinta do Ypuã - Pagamento</title>
+    <link rel="icon" type="image/png" href="/site/img/Design sem nome.png">
+    <script src="https://sdk.mercadopago.com/js/v2"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> 
+
     <style>
-        /* Estilo para exibir a bandeira do cartão */
-        #bandeira-img {
-            width: 50px; /* Ajuste o tamanho da imagem */
-            height: auto;
+        :root {
+            --primary-color: #3a7563;
+            --secondary-color: #f8f1e0;
+            --accent-color: #e09e50;
+            --text-color: #333;
+            --light-bg: #f9f9f9;
+            --border-radius: 8px;
+            --box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
         }
-        body{ 
-        background-color: rgba(0, 0, 0, 0.26);
-        font-size: 20px;
-    }
-    form{
-        background-color: rgba(0, 0, 0, 0.26);
-        font-size: 20px;
-    }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--light-bg);
+            color: var(--text-color);
+            line-height: 1.6;
+            padding: 0;
+            margin: 0;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 20px 0;
+            text-align: center;
+            margin-bottom: 30px;
+            box-shadow: var(--box-shadow);
+        }
+
+        header h1 {
+            font-size: 28px;
+            margin: 0;
+        }
+
+        .logo {
+            max-width: 120px;
+            margin-bottom: 10px;
+        }
+
+        .payment-form {
+            background-color: white;
+            padding: 30px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            margin-bottom: 30px;
+        }
+
+        .payment-summary {
+            background-color: var(--secondary-color);
+            padding: 20px;
+            border-radius: var(--border-radius);
+            margin-bottom: 30px;
+            border-left: 4px solid var(--accent-color);
+        }
+
+        .payment-summary h2 {
+            color: var(--primary-color);
+            margin-bottom: 15px;
+            font-size: 22px;
+        }
+
+        .payment-details {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .payment-details div {
+            flex: 1;
+            min-width: 200px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: var(--primary-color);
+        }
+
+        input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: var(--border-radius);
+            font-size: 16px;
+            transition: border-color 0.3s;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: var(--accent-color);
+            box-shadow: 0 0 0 2px rgba(224, 158, 80, 0.2);
+        }
+
+        input:read-only {
+            background-color: #f5f5f5;
+            cursor: not-allowed;
+        }
+
+        .card-details {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .card-number {
+            flex: 2;
+            min-width: 250px;
+        }
+
+        .expiry-date, .cvv {
+            flex: 1;
+            min-width: 120px;
+        }
+
+        .card-info {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 10px;
+            min-height: 30px;
+        }
+
+        #bandeira-img {
+            width: 40px;
+            height: auto;
+            vertical-align: middle;
+        }
+
+        #bandeira-nome {
+            font-weight: bold;
+            color: var(--primary-color);
+        }
+
+        button {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 14px 20px;
+            font-size: 18px;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            width: 100%;
+            transition: background-color 0.3s;
+            font-weight: 600;
+            margin-top: 10px;
+        }
+
+        button:hover {
+            background-color: #2a5549;
+        }
+
+        #botaoConfirmar {
+            background-color: var(--accent-color);
+            display: none;
+            margin-top: 20px;
+        }
+
+        #botaoConfirmar:hover {
+            background-color: #c88a40;
+        }
+
+        .results {
+            background-color: white;
+            padding: 25px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+        }
+
+        .results h2 {
+            color: var(--primary-color);
+            margin-bottom: 15px;
+            font-size: 22px;
+            border-bottom: 2px solid var(--accent-color);
+            padding-bottom: 10px;
+        }
+
+        #resultado {
+            background-color: var(--secondary-color);
+            padding: 15px;
+            border-radius: var(--border-radius);
+            line-height: 1.8;
+        }
+
+        .result-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px dashed #ddd;
+        }
+        
+        .result-item:last-child {
+            border-bottom: none;
+            font-weight: bold;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 30px;
+            color: #777;
+            font-size: 14px;
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                padding: 10px;
+            }
+            
+            .payment-form, .results {
+                padding: 20px;
+            }
+            
+            input {
+                padding: 10px;
+            }
+            
+            button {
+                padding: 12px;
+            }
+        }
     </style>
 </head>
 <body>
+    <header>
+        <div class="container">
+            <img src="/site/img/Design sem nome.png" alt="Logo Pousada Quinta do Ypuã" class="logo">
+            <h1>Pagamento - Pousada Quinta do Ypuã</h1>
+        </div>
+    </header>
 
-    <form>
-    <h1>Pagamento com Cartão</h1>
+    <div class="container">
+        <div class="payment-summary">
+            <h2>Resumo da Reserva</h2>
+            <div class="payment-details">
+                <div>
+                    <p><strong>Check-in:</strong> <span id="data-checkin">--/--/----</span></p>
+                    <p><strong>Check-out:</strong> <span id="data-checkout">--/--/----</span></p>
+                </div>
+                <div>
+                    <p><strong>Noites:</strong> <span id="total-noites">--</span></p>
+                    <p><strong>Valor Total:</strong> R$ <span id="valor-total-display">--,--</span></p>
+                </div>
+            </div>
+        </div>
 
-    <label for="valor">Valor Total (R$):</label>
-    <input type="number" id="valor" placeholder="Digite o valor" readonly>
+        <form id="form-pagamento" class="payment-form">
+            <h2>Dados do Pagamento</h2>
+        
+            <div class="form-group">
+                <label for="valor">Valor Total (R$):</label>
+                <input type="number" id="valor" readonly>
+            </div>
+        
+            <div class="form-group">
+                <label for="parcelas">Número de Parcelas:</label>
+                <input type="number" id="parcelas" min="1" max="24" value="1">
+            </div>
+        
+            <div class="form-group">
+                <label for="juros">Taxa de Juros Mensal (%):</label>
+                <input type="number" id="juros" step="0.01">
+            </div>
+        
+            <div class="form-group">
+                <label for="email">E-mail:</label>
+                <input type="email" id="email" placeholder="email@exemplo.com">
+            </div>
+        
+            <div class="form-group">
+                <label for="identificationType">Tipo de Documento:</label>
+                <select id="identificationType"></select>
+            </div>
+        
+            <div class="form-group">
+                <label for="identificationNumber">Número do Documento:</label>
+                <input type="text" id="identificationNumber" placeholder="12345678900">
+            </div>
+        
+            <h2>Dados do Cartão</h2>
+        
+            <div class="form-group">
+                <label for="numeroCartao">Número do Cartão:</label>
+                <input type="text" id="numeroCartao" maxlength="19" placeholder="0000 0000 0000 0000" oninput="verificarBandeira()">
+                <div class="card-info">
+                    <img id="bandeira-img" src="" alt="" style="display: none;">
+                    <span id="bandeira-nome"></span>
+                </div>
+            </div>
+        
+            <div class="card-details">
+                <div class="form-group expiry-date">
+                    <label for="validade">Data de Validade:</label>
+                    <input type="text" id="validade" maxlength="5" placeholder="MM/AA">
+                </div>
+        
+                <div class="form-group cvv">
+                    <label for="cvv">CVV:</label>
+                    <input type="number" id="cvv" maxlength="4" placeholder="123">
+                </div>
+            </div>
+        
+            <div class="form-group">
+                <label for="titular">Nome do Titular:</label>
+                <input type="text" id="titular" placeholder="Nome como está no cartão">
+            </div>
+        
+            <button type="submit">Confirmar Pagamento</button>
+        </form>
+        
+        <div class="results">
+            <h2>Detalhes do Parcelamento</h2>
+            <div id="resultado">
+                Preencha os campos acima e clique em "Calcular Parcelas" para ver os detalhes.
+            </div>
+        </div>
+    </div>
 
-    <label for="parcelas">Número de Parcelas:</label>
-    <input type="number" id="parcelas" placeholder="Ex.: 12">
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Pousada Quinta do Ypuã - Todos os direitos reservados</p>
+        </div>
+    </footer>
 
-    <label for="juros">Taxa de Juros Mensal (%):</label>
-    <input type="number" id="juros" placeholder="Ex.: 2">
-
-    <label for="numeroCartao">Número do Cartão: <img id="bandeira-img" src="" alt="Bandeira do Cartão" /></label> 
-    <input type="text" id="numeroCartao" maxlength="16" placeholder="Digite o número do cartão" oninput="verificarBandeira()">  <br>
-
-
-    <label for="cvv">CVV:</label>
-    <input type="number" id="cvv" maxlength="3" placeholder="Digite o CVV">
-
-    <label for="validade">Data de Validade (MM/AA):</label>
-    <input type="text" id="validade" maxlength="5" placeholder="Ex.: 12/24">
-
-    <button onclick="calcular()">Calcular</button>
-
-    <h2>Resultados:</h2>
-    <p id="resultado"></p>
-
-  
-    
     <script>
-        // Função para preencher automaticamente o valor total na página de pagamento
-        function preencherValorTotal() {
-            
-    const valorTotal = localStorage.getItem('total');
-    const nights = localStorage.getItem('nights');
+    function formatarNumeroCartao(input) {
+        let value = input.value.replace(/\D/g, '');
+        if (value.length > 0) {
+            value = value.match(/.{1,4}/g).join(' ');
+        }
+        input.value = value;
+    }
+
+    function formatarValidade(input) {
+        let value = input.value.replace(/\D/g, '');
+        if (value.length > 2) {
+            value = value.substring(0, 2) + '/' + value.substring(2, 4);
+        }
+        input.value = value;
+    }
+
+    document.getElementById('numeroCartao').addEventListener('input', function () {
+        formatarNumeroCartao(this);
+    });
+
+    document.getElementById('validade').addEventListener('input', function () {
+        formatarValidade(this);
+    });
+
+    function preencherValorTotal() {
+        const valorTotal = localStorage.getItem('total', total.toFixed(2));
+        const nights = localStorage.getItem('nights',nights);
+        const checkin = localStorage.getItem('checkin',checkin);
+        const checkout = localStorage.getItem('checkout',checkout);
+
+        if (valorTotal) {
+            document.getElementById('valor').value = valorTotal;
+            document.getElementById('valor-total-display').textContent = parseFloat(valorTotal).toFixed(2).replace('.', ',');
+        }
+
+        if (nights) {
+            document.getElementById('total-noites').textContent = nights;
+        }
+
+        if (checkin) {
+            document.getElementById('data-checkin').textContent = formatarData(checkin);
+        }
+
+        if (checkout) {
+            document.getElementById('data-checkout').textContent = formatarData(checkout);
+        }
+    }
+
+    function formatarData(dataString) {
+        if (!dataString) return '--/--/----';
+        try {
+            const [ano, mes, dia] = dataString.split('-');
+            return `${dia}/${mes}/${ano}`;
+        } catch (e) {
+            return dataString;
+        }
+    }
+
+    window.onload = preencherValorTotal;
+
+    function calcular() {
+        const valor = parseFloat(document.getElementById("valor").value);
+        const parcelas = parseInt(document.getElementById("parcelas").value);
+        const juros = parseFloat(document.getElementById("juros").value) / 100;
+        const numeroCartao = document.getElementById("numeroCartao").value.replace(/\s/g, '');
+        const cvv = document.getElementById("cvv").value.trim();
+        const validade = document.getElementById("validade").value.trim();
+        const titular = document.getElementById("titular").value.trim();
+
+        if (!valor || isNaN(valor)) return alert("Valor total não carregado corretamente.");
+        if (!parcelas || parcelas < 1 || parcelas > 24) return alert("Informe de 1 a 24 parcelas.");
+        if (numeroCartao.length < 13 || numeroCartao.length > 16) return alert("Número do cartão inválido.");
+        if (!/^\d{2}\/\d{2}$/.test(validade)) return alert("Data de validade inválida.");
+        if (!cvv || (cvv.length < 3 || cvv.length > 4)) return alert("Código de segurança inválido.");
+        if (!titular) return alert("Informe o nome do titular do cartão.");
+
+        let resultadoHTML = '';
+
+        if (juros > 0) {
+            const parcela = valor * (juros / (1 - Math.pow(1 + juros, -parcelas)));
+            const total = parcela * parcelas;
+            const totalJuros = total - valor;
+
+            resultadoHTML = `
+                <div class="result-item"><span>Valor Original:</span><span>R$ ${valor.toFixed(2).replace('.', ',')}</span></div>
+                <div class="result-item"><span>Número de Parcelas:</span><span>${parcelas}x</span></div>
+                <div class="result-item"><span>Taxa de Juros:</span><span>${(juros * 100).toFixed(2).replace('.', ',')}% ao mês</span></div>
+                <div class="result-item"><span>Valor por Parcela:</span><span>R$ ${parcela.toFixed(2).replace('.', ',')}</span></div>
+                <div class="result-item"><span>Total de Juros:</span><span>R$ ${totalJuros.toFixed(2).replace('.', ',')}</span></div>
+                <div class="result-item"><span>Valor Total com Juros:</span><span>R$ ${total.toFixed(2).replace('.', ',')}</span></div>
+            `;
+        } else {
+            const parcela = valor / parcelas;
+            resultadoHTML = `
+                <div class="result-item"><span>Valor Total:</span><span>R$ ${valor.toFixed(2).replace('.', ',')}</span></div>
+                <div class="result-item"><span>Número de Parcelas:</span><span>${parcelas}x</span></div>
+                <div class="result-item"><span>Valor por Parcela:</span><span>R$ ${parcela.toFixed(2).replace('.', ',')}</span></div>
+                <div class="result-item"><span>Taxa de Juros:</span><span>Sem juros</span></div>
+            `;
+        }
+
+        document.getElementById("resultado").innerHTML = resultadoHTML;
+        document.getElementById("botaoConfirmar").style.display = "block";
+    }
+
+    function verificarBandeira() {
+        const numeroCartao = document.getElementById("numeroCartao").value.replace(/\D/g, '');
+        const bandeiraImg = document.getElementById("bandeira-img");
+        const bandeiraNome = document.getElementById("bandeira-nome");
+
+        let imagem = "", nome = "";
+
+        if (/^4/.test(numeroCartao)) {
+            nome = "Visa";
+            imagem = "/site/img/visa.png";
+        } else if (/^5[1-5]/.test(numeroCartao)) {
+            nome = "MasterCard";
+            imagem = "/site/img/mastercard.png";
+        } else if (/^3[47]/.test(numeroCartao)) {
+            nome = "American Express";
+            imagem = "/site/img/amex.png";
+        } else if (/^6/.test(numeroCartao)) {
+            nome = "Discover";
+            imagem = "/site/img/discover.png";
+        } else if (numeroCartao.length >= 6) {
+            nome = "Cartão não identificado";
+            imagem = "";
+        }
+
+        if (imagem) {
+            bandeiraImg.src = imagem;
+            bandeiraImg.style.display = "inline";
+        } else {
+            bandeiraImg.style.display = "none";
+        }
+
+        bandeiraNome.textContent = nome;
+    }
+
+    function confirmarReserva() {
+    const valor = parseFloat(document.getElementById("valor").value);
+    const parcelas = parseInt(document.getElementById("parcelas").value);
+    const juros = parseFloat(document.getElementById("juros").value) || 0;
+    const numeroCartao = document.getElementById("numeroCartao").value.replace(/\s/g, '');
+    const validade = document.getElementById("validade").value.trim();
+    const cvv = document.getElementById("cvv").value.trim();
+    const titular = document.getElementById("titular").value.trim();
+
+    // Dados adicionais
     const checkin = localStorage.getItem('checkin');
     const checkout = localStorage.getItem('checkout');
+    const noites = localStorage.getItem('nights');
 
-    // Exibe as informações no console para debugging
-    console.log(`Total: ${valorTotal}, Noites: ${nights}, Check-in: ${checkin}, Check-out: ${checkout}`);
-     // Recupera o valor armazenado
-            if (valorTotal) {
-                document.getElementById('valor').value = valorTotal; // Preenche o campo com o valor
-            }
+    // Cria o corpo da requisição
+    const dadosPagamento = {
+        valor: valor,
+        parcelas: parcelas,
+        juros: juros,
+        numeroCartao: numeroCartao,
+        validade: validade,
+        cvv: cvv,
+        titular: titular,
+        checkin: checkin,
+        checkout: checkout,
+        noites: noites
+    };
+
+    // Envia para o backend (simulado)
+    fetch('processar_pagamento.php', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(dadosPagamento)
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.sucesso) {
+            alert("Reserva confirmada com sucesso!");
+            localStorage.clear();
+            window.location.href = "confirmacao.html";
+        } else {
+            alert("Erro ao confirmar reserva: " + data.mensagem);
+        }
+    })
+    .catch(error => {
+        console.error("Erro ao processar pagamento:", error);
+        alert("Ocorreu um erro na confirmação do pagamento.");
+    });
+}
+// Inicialize o Mercado Pago com sua Public Key
+const mp = new MercadoPago('SUA_PUBLIC_KEY_AQUI'); // substitua pela sua PUBLIC KEY
+
+window.onload = () => {
+  preencherValorTotal();
+
+  const cardForm = mp.cardForm({
+    amount: document.getElementById("valor").value,
+    autoMount: true,
+    form: {
+      id: "form-pagamento",
+      cardholderName: {
+        id: "titular",
+        placeholder: "Nome impresso no cartão"
+      },
+      cardholderEmail: {
+        id: "email",
+        placeholder: "E-mail"
+      },
+      cardNumber: {
+        id: "numeroCartao",
+        placeholder: "Número do cartão"
+      },
+      cardExpirationDate: {
+        id: "validade",
+        placeholder: "MM/AA"
+      },
+      securityCode: {
+        id: "cvv",
+        placeholder: "CVV"
+      },
+      installments: {
+        id: "parcelas"
+      },
+      identificationType: {
+        id: "identificationType"
+      },
+      identificationNumber: {
+        id: "identificationNumber",
+        placeholder: "Documento"
+      }
+    },
+    callbacks: {
+      onFormMounted: error => {
+        if (error) console.warn("Erro ao montar o formulário:", error);
+      },
+      onSubmit: async event => {
+        event.preventDefault();
+
+        const cardData = cardForm.getCardFormData();
+        const result = await cardForm.createCardToken();
+
+        if (result.error) {
+          alert("Erro ao gerar token do cartão.");
+          return;
         }
 
-        // Chama a função ao carregar a página de pagamento
-        window.onload = preencherValorTotal;
-    
-
-        // Função de cálculo das parcelas
-        function calcular() {
-            const valor = parseFloat(document.getElementById("valor").value);
-            const parcelas = parseInt(document.getElementById("parcelas").value);
-            const juros = parseFloat(document.getElementById("juros").value) / 100;
-
-            if (!valor || !parcelas) {
-                alert("Por favor, preencha todos os campos!");
-                return;
+        const pagamento = {
+          token: result.token,
+          transaction_amount: Number(document.getElementById("valor").value),
+          installments: Number(document.getElementById("parcelas").value),
+          payment_method_id: cardData.paymentMethodId,
+          payer: {
+            email: cardData.cardholderEmail,
+            identification: {
+              type: cardData.identificationType,
+              number: cardData.identificationNumber
             }
+          }
+        };
 
-            let resultado = "";
-            if (juros > 0) {
-                const parcela = valor * (juros / (1 - Math.pow(1 + juros, -parcelas)));
-                const total = parcela * parcelas;
-                const totalJuros = total - valor;
+        const response = await fetch("/processar_pagamento.php", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(pagamento)
+        });
 
-                resultado = `
-                    Valor da Parcela: R$ ${parcela.toFixed(2)}<br>
-                    Total com Juros: R$ ${total.toFixed(2)}<br>
-                    Total de Juros: R$ ${totalJuros.toFixed(2)}
-                `;
-            } else {
-                const parcela = valor / parcelas;
+        const resultado = await response.json();
 
-                resultado = `
-                    Valor da Parcela: R$ ${parcela.toFixed(2)}<br>
-                    Total: R$ ${valor.toFixed(2)}<br>
-                    Sem Juros Aplicados.
-                `;
-            }
-            document.getElementById("resultado").innerHTML = resultado;
+        if (resultado.status === "approved") {
+          alert("Pagamento aprovado!");
+          localStorage.clear();
+          window.location.href = "confirmacao.html";
+        } else {
+          alert("Pagamento recusado: " + resultado.status_detail);
         }
+      }
+    }
+  });
+};
 
-        // Função para verificar a bandeira do cartão com base no número
-        function verificarBandeira() {
-            const numeroCartao = document.getElementById("numeroCartao").value;
-            let bandeira = "Não detectada";
-            let imagem = "";
 
-            if (/^4/.test(numeroCartao)) {
-                bandeira = "Visa";
-                imagem = "img/visa.png"; // Caminho da imagem
-            } else if (/^5/.test(numeroCartao)) {
-                bandeira = "MasterCard";
-                imagem = "img/mastecard.png"; // Caminho da imagem
-            } else if (/^3/.test(numeroCartao)) {
-                bandeira = "American Express";
-                imagem = "img/amex.png"; // Caminho da imagem
-            } else if (/^6/.test(numeroCartao)) {
-                bandeira = "Discover";
-                imagem = "img/discover.png"; // Caminho da imagem
-            }
 
-            // Atualiza o texto e a imagem da bandeira
-            alert(`Bandeira do cartão: ${bandeira}`);
-            document.getElementById("bandeira-img").src = imagem;
-        }
-    </script>
-    </form>
+</script>
+
 </body>
 </html>
