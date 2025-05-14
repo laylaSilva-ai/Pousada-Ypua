@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pousada Quinta do Ypuã</title>
     <link rel="stylesheet" href="/site/CSS/reserva.css">
-    <link rel="icon" type="image/png" href="/site/img/Design sem nome.png ">
+    <link rel="icon" type="image/png" href="/site/img/Design sem nome.png">
 </head>
 <body>
 <div class="container">
@@ -15,22 +15,21 @@
             <ul>
                 <li><a href="/site/HTML/home.html">Sobre</a></li>
                 <li><a href="/site/HTML/quartos.html">Quartos</a></li>
-                <li><a href="/site/HTML/contatos.html">Contatos</a></li>             
-    
+                <li><a href="/site/HTML/contatos.html">Contatos</a></li>
             </ul>
         </nav>
     </header>
 
-   
     <div class="container" id="step-1">
         <h1>Venha viver<span> os melhores dias da </span> sua vida!</h1>
+
         <br><label for="checkin">Check-in:</label>
         <input type="date" id="checkin">
-        
+
         <br><br><label for="checkout">Check-out:</label>
         <input type="date" id="checkout">
-        
-        <br><br><label for="guests">Número de Hóspedes:</label>
+
+        <br><br><label for="guests">Número de Adultos:</label>
         <select id="guests">
             <option value="1">1 Adulto</option>
             <option value="2">2 Adultos</option>
@@ -38,48 +37,69 @@
             <option value="4">4 Adultos</option>
         </select>
 
+        <br><br><label for="children">Número de Crianças:</label>
+        <select id="children">
+            <option value="0">0 Crianças</option>
+            <option value="1">1 Criança</option>
+            <option value="2">2 Crianças</option>
+            <option value="3">3 Crianças</option>
+            <option value="4">4 Crianças</option>
+        </select>
+
         <div id="total">
-           <br> Noite(s): <span id="nights">0</span> <br>
-           <br> Total: R$<span id="total-price">0</span>
+            <br> Noite(s): <span id="nights">0</span> <br>
+            <br> Total: R$<span id="total-price">0</span>
         </div>
-       <br> <button id="simulate-btn">Simular reserva</button>
+
+        <br><button id="simulate-btn">Simular reserva</button>
     </div>
 
-  
     <div class="container" id="step-2" style="display: none;">
         <h1>Detalhes do Hóspede</h1>
-        <form id="guest-form">
+        <form id="guest-form" method="POST" action="salvar_reserva.php">
             <p><strong>*Campos obrigatórios*</strong></p>
+
             <label for="name">Nome:</label>
-            <input type="text" id="name" required>
-            
+            <input type="text" id="name" name="nome" required>
+
             <br><br><label for="email">Email:</label>
-            <input type="email" id="email" required>
-            
+            <input type="email" id="email" name="email" required>
+
             <br><br><label for="telefone">Telefone:</label>
             <div class="telefone">
-            <input type="text" id="ddd" name="ddd" placeholder="DDD" maxlength="3" required>
-            <input type="text" id="telefone" name="telefone" placeholder="Telefone" maxlength="10" required>
+                <input type="text" id="ddd" name="ddd" placeholder="DDD" maxlength="3" required>
+                <input type="text" id="telefone" name="telefone" placeholder="Telefone" maxlength="10" required>
             </div>
 
-           <br><label for="special-requests">Pedidos Especiais:</label>
-            <br><textarea id="special-requests" rows="4"></textarea>
+            <br><label for="special-requests">Pedidos Especiais:</label>
+            <br><textarea id="special-requests" name="pedidos_especiais" rows="4"></textarea>
 
             <h2>Resumo da Reserva</h2>
             <p><b>Tipo de Acomodação:</b> </p>
             <p><b>Data:</b> <span id="summary-dates"></span></p>
+            <p><b>Adultos:</b> <span id="summary-adults"></span></p>
+            <p><b>Crianças:</b> <span id="summary-children"></span></p>
             <p><b>Número de Noites:</b> <span id="summary-nights"></span></p>
             <p><b>Total:</b> R$<span id="summary-total"></span></p>
-            
-            <br><br><button type="button" id="proceed-to-payment">Continuar para o Pagamento</button>
-            
-      
+
+            <!-- Campos ocultos -->
+            <input type="hidden" name="checkin" id="form-checkin">
+            <input type="hidden" name="checkout" id="form-checkout">
+            <input type="hidden" name="noites" id="form-noites">
+            <input type="hidden" name="numero_hospedes" id="form-guests">
+            <input type="hidden" name="criancas" id="form-children">
+            <input type="hidden" name="total" id="form-total">
+
+            <br><br><button type="submit">Finalizar Reserva</button>
+        </form>
+    </div>
+
     <script>
-        // Simulação e navegação
         document.getElementById('simulate-btn').addEventListener('click', () => {
             const checkin = document.getElementById('checkin').value;
             const checkout = document.getElementById('checkout').value;
-            const guests = document.getElementById('guests').value;
+            const guests = parseInt(document.getElementById('guests').value);
+            const children = parseInt(document.getElementById('children').value);
 
             if (!checkin || !checkout) {
                 alert('Por favor, preencha as datas de Check-in e Check-out.');
@@ -89,25 +109,38 @@
             const checkinDate = new Date(checkin);
             const checkoutDate = new Date(checkout);
             const nights = (checkoutDate - checkinDate) / (1000 * 60 * 60 * 24);
+
             if (nights <= 0) {
                 alert('A data de Check-out deve ser posterior ao Check-in.');
                 return;
             }
 
-            const total = nights * 200; // Exemplo de preço por noite
+            const adultRate = 200;
+            const childRate = 100;
+            const total = nights * ((guests * adultRate) + (children * childRate));
+
+            // Atualiza resumo
             document.getElementById('nights').textContent = nights;
             document.getElementById('total-price').textContent = total;
+            document.getElementById('summary-dates').textContent = `${checkin} até ${checkout}`;
+            document.getElementById('summary-adults').textContent = guests;
+            document.getElementById('summary-children').textContent = children;
+            document.getElementById('summary-nights').textContent = nights;
+            document.getElementById('summary-total').textContent = total;
 
-            localStorage.setItem('total', total);
-            localStorage.setItem('nights', nights);
+            // Armazena no localStorage
             localStorage.setItem('checkin', checkin);
             localStorage.setItem('checkout', checkout);
             localStorage.setItem('guests', guests);
+            localStorage.setItem('children', children);
+            localStorage.setItem('nights', nights);
+            localStorage.setItem('total', total);
 
             document.getElementById('step-1').style.display = 'none';
             document.getElementById('step-2').style.display = 'block';
         });
 
+<<<<<<< HEAD
      
        
         document.getElementById('proceed-to-payment').addEventListener('click', () => {
@@ -118,10 +151,18 @@
         localStorage.setItem('valor', total);
         // Redirecionar para a página de escolha de pagamento
             window.location.href = 'escolha_pagamento.html'; // Redireciona para a página de escolha de pagamento
+=======
+        // Preenche campos ocultos no submit
+        document.getElementById('guest-form').addEventListener('submit', () => {
+            document.getElementById('form-checkin').value = localStorage.getItem('checkin');
+            document.getElementById('form-checkout').value = localStorage.getItem('checkout');
+            document.getElementById('form-noites').value = localStorage.getItem('nights');
+            document.getElementById('form-guests').value = localStorage.getItem('guests');
+            document.getElementById('form-children').value = localStorage.getItem('children');
+            document.getElementById('form-total').value = localStorage.getItem('total');
+>>>>>>> 24de6ee86076ee4211a37747da4fa1bb22bdcd0a
         });
     </script>
-    
-            
 </div>
 </body>
 </html>
