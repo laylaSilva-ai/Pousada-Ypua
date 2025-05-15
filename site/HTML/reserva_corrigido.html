@@ -75,7 +75,7 @@
             <br><textarea id="special-requests" name="pedidos_especiais" rows="4"></textarea>
 
             <h2>Resumo da Reserva</h2>
-            <p><b>Tipo de Acomodação:</b> Domo</p>
+            <p><b>Tipo de Acomodação:</b> </p>
             <p><b>Data:</b> <span id="summary-dates"></span></p>
             <p><b>Adultos:</b> <span id="summary-adults"></span></p>
             <p><b>Crianças:</b> <span id="summary-children"></span></p>
@@ -139,7 +139,6 @@
             document.getElementById('step-1').style.display = 'none';
             document.getElementById('step-2').style.display = 'block';
         });
-
         // Verifica se todos os campos estão preenchidos antes do envio
         document.getElementById('guest-form').addEventListener('submit', function(event) {
             // Verifica se os campos obrigatórios estão preenchidos
@@ -165,6 +164,27 @@
             }
             
             return true;
+
+     
+       
+        document.getElementById('proceed-to-payment').addEventListener('click', () => {
+        const email = document.getElementById('email').value;
+        const total = localStorage.getItem('total');
+
+        localStorage.setItem('email', email);
+        localStorage.setItem('valor', total);
+        // Redirecionar para a página de escolha de pagamento
+            window.location.href = 'escolha_pagamento.html'; // Redireciona para a página de escolha de pagamento
+
+        // Preenche campos ocultos no submit
+        document.getElementById('guest-form').addEventListener('submit', () => {
+            document.getElementById('form-checkin').value = localStorage.getItem('checkin');
+            document.getElementById('form-checkout').value = localStorage.getItem('checkout');
+            document.getElementById('form-noites').value = localStorage.getItem('nights');
+            document.getElementById('form-guests').value = localStorage.getItem('guests');
+            document.getElementById('form-children').value = localStorage.getItem('children');
+            document.getElementById('form-total').value = localStorage.getItem('total');
+
         });
     </script>
 </div>
