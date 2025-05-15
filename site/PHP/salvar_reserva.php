@@ -1,51 +1,65 @@
 <?php
-include 'conexao.php';
+// Conexão com o banco de dados 
+$host = 'localhost';
+$db   = 'pousadaaaa';
+$user = 'root'; // ou outro usuário 
+$pass = '';     // coloque a senha correta se necessário
+$charset = 'utf8mb4';
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    // Captura os dados do hóspede
-    $nome = $_POST['nome'];
-    $email = $_POST['email'];
-    $ddd = $_POST['ddd'];
-    $telefone = $_POST['telefone'];
-    $pedidos = $_POST['pedidos_especiais'];
+$dsn = "mysql:host=$host;dbname=$db;charset=$charset";
 
-    // Captura os dados da reserva
-    $checkin = $_POST['checkin'];
-    $checkout = $_POST['checkout'];
-    $noites = $_POST['noites'];
-    $hospedes = $_POST['numero_hospedes'];
-    $criancas = isset($_POST['criancas']) ? $_POST['criancas'] : 0;
-    $total = $_POST['total'];
+$options = [
+    PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
+    PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
+];
 
-    // 1. Inserir hóspede
-    $stmtHospede = $conn->prepare("INSERT INTO hospedes (nome, email, ddd, telefone, pedidos_especiais) VALUES (?, ?, ?, ?, ?)");
-    $stmtHospede->bind_param("sssss", $nome, $email, $ddd, $telefone, $pedidos);
-
-    if ($stmtHospede->execute()) {
-        $hospede_id = $stmtHospede->insert_id;
-
-        // 2. Inserir reserva (inclui número de crianças)
-        $stmtReserva = $conn->prepare("
-            INSERT INTO reservas (
-                hospede_id, checkin, checkout, noites, numero_hospedes, criancas, total
-            ) VALUES (?, ?, ?, ?, ?, ?, ?)
-        ");
-        $stmtReserva->bind_param("issiiid", $hospede_id, $checkin, $checkout, $noites, $hospedes, $criancas, $total);
-
-        if ($stmtReserva->execute()) {
-            echo "Reserva salva com sucesso!";
-        } else {
-            echo "Erro ao salvar a reserva: " . $stmtReserva->error;
-        }
-
-        $stmtReserva->close();
+try {
+    $pdo = new PDO($dsn, $user, $pass, $options);
+    
+    // Verifica se o formulário foi enviado via POST
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        // Dados do formulário
+        $nome = $_POST['nome'] ?? '';
+        $email = $_POST['email'] ?? '';
+        $ddd = $_POST['ddd'] ?? '';
+        $telefone = $_POST['telefone'] ?? '';
+        $pedidos_especiais = $_POST['pedidos_especiais'] ?? '';
+        $checkin = $_POST['checkin'] ?? '';
+        $checkout = $_POST['checkout'] ?? '';
+        $noites = $_POST['noites'] ?? 0;
+        $numero_hospedes = $_POST['numero_hospedes'] ?? 0;
+        $criancas = $_POST['criancas'] ?? 0;
+        $total = $_POST['total'] ?? 0;
+        
+        // Debug - remova após testes
+        // echo "<pre>";
+        // print_r($_POST);
+        // echo "</pre>";
+        
+        // Inserção no banco
+        $stmt = $pdo->prepare("INSERT INTO reservas
+            (nome, email, ddd, telefone, pedidos_especiais, checkin, checkout, noites, numero_hospedes, criancas, total)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+            
+        $stmt->execute([
+            $nome, 
+            $email, 
+            $ddd, 
+            $telefone, 
+            $pedidos_especiais, 
+            $checkin, 
+            $checkout, 
+            $noites, 
+            $numero_hospedes, 
+            $criancas, 
+            $total
+        ]);
+        
+        echo "<script>alert('Reserva realizada com sucesso!'); window.location.href = '/site/HTML/home.html';</script>";
     } else {
-        echo "Erro ao salvar o hóspede: " . $stmtHospede->error;
+        echo "<script>alert('Método de envio incorreto!'); window.location.href = '/site/HTML/home.html';</script>";
     }
-
-    $stmtHospede->close();
-    $conn->close();
-} else {
-    echo "Requisição inválida.";
+} catch (PDOException $e) {
+    echo "<script>alert('Erro ao salvar reserva: " . addslashes($e->getMessage()) . "'); window.history.back();</script>";
 }
 ?>

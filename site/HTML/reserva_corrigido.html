@@ -56,7 +56,7 @@
 
     <div class="container" id="step-2" style="display: none;">
         <h1>Detalhes do Hóspede</h1>
-        <form id="guest-form" method="POST" action="salvar_reserva.php">
+        <form id="guest-form" method="POST" action="/site/PHP/salvar_reserva.php">
             <p><strong>*Campos obrigatórios*</strong></p>
 
             <label for="name">Nome:</label>
@@ -121,33 +121,50 @@
 
             // Atualiza resumo
             document.getElementById('nights').textContent = nights;
-            document.getElementById('total-price').textContent = total;
+            document.getElementById('total-price').textContent = total.toFixed(2);
             document.getElementById('summary-dates').textContent = `${checkin} até ${checkout}`;
             document.getElementById('summary-adults').textContent = guests;
             document.getElementById('summary-children').textContent = children;
             document.getElementById('summary-nights').textContent = nights;
-            document.getElementById('summary-total').textContent = total;
+            document.getElementById('summary-total').textContent = total.toFixed(2);
 
-            // Armazena no localStorage
-            localStorage.setItem('checkin', checkin);
-            localStorage.setItem('checkout', checkout);
-            localStorage.setItem('guests', guests);
-            localStorage.setItem('children', children);
-            localStorage.setItem('nights', nights);
-            localStorage.setItem('total', total);
+            // Preenche os campos ocultos do formulário
+            document.getElementById('form-checkin').value = checkin;
+            document.getElementById('form-checkout').value = checkout;
+            document.getElementById('form-noites').value = nights;
+            document.getElementById('form-guests').value = guests;
+            document.getElementById('form-children').value = children;
+            document.getElementById('form-total').value = total.toFixed(2);
 
             document.getElementById('step-1').style.display = 'none';
             document.getElementById('step-2').style.display = 'block';
         });
 
-        // Preenche campos ocultos no submit
-        document.getElementById('guest-form').addEventListener('submit', () => {
-            document.getElementById('form-checkin').value = localStorage.getItem('checkin');
-            document.getElementById('form-checkout').value = localStorage.getItem('checkout');
-            document.getElementById('form-noites').value = localStorage.getItem('nights');
-            document.getElementById('form-guests').value = localStorage.getItem('guests');
-            document.getElementById('form-children').value = localStorage.getItem('children');
-            document.getElementById('form-total').value = localStorage.getItem('total');
+        // Verifica se todos os campos estão preenchidos antes do envio
+        document.getElementById('guest-form').addEventListener('submit', function(event) {
+            // Verifica se os campos obrigatórios estão preenchidos
+            const nome = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const ddd = document.getElementById('ddd').value;
+            const telefone = document.getElementById('telefone').value;
+            
+            if (!nome || !email || !ddd || !telefone) {
+                alert('Por favor, preencha todos os campos obrigatórios.');
+                event.preventDefault();
+                return false;
+            }
+            
+            // Confirma que os campos hidden estão preenchidos
+            if (!document.getElementById('form-checkin').value || 
+                
+             !document.getElementById('form-checkout').value || 
+                !document.getElementById('form-noites').value) {
+                alert('Houve um problema com seus dados de reserva. Por favor, tente novamente.');
+                event.preventDefault();
+                return false;
+            }
+            
+            return true;
         });
     </script>
 </div>

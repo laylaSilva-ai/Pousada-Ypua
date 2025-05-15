@@ -1,11 +1,12 @@
 <?php
-$access_token = "APP_USR-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx";
-$servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "pousadaypua";
+$host = "localhost";
+$dbname = "pousadaaaa";
+$username = "root"; // Altere se necessário
+$password = ""; // Altere se necessário
 
-$conn = new mysqli($servername, $username, $password, $dbname);
+$conn = new mysqli($host, $username, $password, $dbname);
+
 if ($conn->connect_error) {
-    die("Erro ao conectar no banco de dados: " . $conn->connect_error);
+    die("Falha na conexão: " . $conn->connect_error);
 }
+?>
