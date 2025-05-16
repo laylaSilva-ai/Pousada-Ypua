@@ -13,12 +13,56 @@
     
     /* Container */
     .container {
-        width: 90%;
+        width: 80%;
         max-width: 1200px;
         margin: auto;
         padding: 20px;
     }
-    
+ 
+
+/* Cabeçalho */
+header {
+    background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+    padding: 25px 0;
+    box-shadow: var(--shadow);
+    position: relative;
+    z-index: 10;
+    background-color: #9e2d26;
+}
+
+header h1 {
+    color: var(--white);
+    font-family: 'Playfair Display', serif;
+    font-size: 2.8rem;
+    text-align: center;
+    margin-bottom: 20px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+nav ul {
+    display: flex;
+    justify-content: center;
+    list-style: none;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+nav ul li a {
+    color: var(--white);
+    text-decoration: none;
+    font-weight: 600;
+    padding: 10px 20px;
+    border-radius: 30px;
+    transition: var(--transition);
+    font-size: 1rem;
+}
+
+nav ul li a:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+    transform: translateY(-3px);
+}
+
+
     /* Banner Section */
     .banner {
         display: flex;
@@ -49,6 +93,16 @@
         border-radius: 8px; /* Arredondando as bordas da imagem */
         width: 60%;
     }
+    .banner-image {
+        display: flex;
+        gap: 10px; /* espaço entre as imagens */
+    }
+    
+    .banner-image img {
+        width: 150px; /* ajuste conforme o necessário */
+        height: auto;
+        border-radius: 8px;
+    }
     
     /* Accommodation Section */
     .accommodation h2 {
@@ -56,35 +110,6 @@
         margin-bottom: 10px;
     }
     
-    .filter {
-        display: flex;
-        gap: 10px;
-        margin: 15px 0;
-    }
-    
-    .filter input, 
-    .filter select, 
-    .filter button {
-        padding: 10px;
-        font-size: 1em;
-        border: 1px solid #ccc;
-        border-radius: 5px;
-    }
-    
-    .filter button {
-        background-color: #b33b2e;
-        color: white;
-        border: none;
-        cursor: pointer;
-        border-radius: 8px; /* Botões arredondados */
-    }
-    
-    
-   
-    .filter button:hover {
-        background-color: #853a34; /* Efeito hover no botão */
-    }
-
         .results {
             font-size: 1.1em;
             margin: 10px 0;

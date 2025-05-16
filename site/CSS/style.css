@@ -18,43 +18,56 @@ body {
 .container {
     background-color: rgba(255, 255, 255, 0.9);
     width: 80%;
-    margin: 0 auto;
+    margin: auto;
     padding: 20px;
+    max-width: 1200px;
     border-radius: 10px;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
 }
-
+    
+/* Cabeçalho */
 header {
-    text-align: center;
-    margin-bottom: 20px;
+    background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+    padding: 25px 0;
+    box-shadow: var(--shadow);
+    position: relative;
+    z-index: 10;
+    background-color: brown;
 }
 
 header h1 {
-    font-size: 2em;
-    color: #333;
+    color: var(--white);
+    font-family: 'Playfair Display', serif;
+    font-size: 2.8rem;
+    text-align: center;
+    margin-bottom: 20px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
 }
 
 nav ul {
-    list-style: none;
     display: flex;
     justify-content: center;
-    margin-top: 10px;
-}
-
-nav ul li {
-    margin: 0 10px;
+    list-style: none;
+    flex-wrap: wrap;
+    gap: 15px;
 }
 
 nav ul li a {
+    color: var(--white);
     text-decoration: none;
-    color: #bd2424;
-    font-weight: bold;
+    font-weight: 600;
+    padding: 10px 20px;
+    border-radius: 30px;
+    transition: var(--transition);
+    font-size: 1rem;
 }
 
 nav ul li a:hover {
-    color: #8b2727da;
+    background-color: rgba(255, 255, 255, 0.2);
+    transform: translateY(-3px);
 }
 
+/*Codigo*/
 main {
     display: flex;
     justify-content: space-around;
@@ -117,7 +130,7 @@ main {
 }
 
 .text-block h2 {
-    color: #4CAF50;
+    color: #a53a3a;
 }
 
 .text-block p {

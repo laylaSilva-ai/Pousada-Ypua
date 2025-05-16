@@ -57,7 +57,7 @@
     <div class="container" id="step-2" style="display: none;">
         <h1>Detalhes do Hóspede</h1>
         <form id="guest-form" method="POST" action="/site/PHP/salvar_reserva.php">
-            <p><strong>*Campos obrigatórios*</strong></p>
+        
 
             <label for="name">Nome:</label>
             <input type="text" id="name" name="nome" required>
@@ -165,7 +165,7 @@
             
             return true;
 
-     
+        });
        
         document.getElementById('proceed-to-payment').addEventListener('click', () => {
         const email = document.getElementById('email').value;
@@ -175,7 +175,7 @@
         localStorage.setItem('valor', total);
         // Redirecionar para a página de escolha de pagamento
             window.location.href = 'escolha_pagamento.html'; // Redireciona para a página de escolha de pagamento
-
+        });
         // Preenche campos ocultos no submit
         document.getElementById('guest-form').addEventListener('submit', () => {
             document.getElementById('form-checkin').value = localStorage.getItem('checkin');
