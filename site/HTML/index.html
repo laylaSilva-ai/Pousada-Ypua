@@ -4,55 +4,130 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pousada Quinta do Ypuã</title>
+    <link rel="stylesheet" href="/site/CSS/quarto.css">
     <link rel="stylesheet" href="/site/CSS/style.css">
-    <link rel="icon" type="image/png" href="c">
+ <link rel="icon" type="image/png" href="/site/img/Design sem nome.png ">
 </head>
+
+
 <body>
+
     <div class="container">
         <header>
             <h1>Pousada Quinta do Ypuã</h1>
             <nav>
                 <ul>
-                    <li><a href="/site/HTML/home.html">Sobre</a></li>
+                    <li><a href="/site/HTML/index.html">Sobre</a></li>
                     <li><a href="/site/HTML/quartos.html">Quartos</a></li>
-                    <li><a href="/site/HTML/contatos.html">Contatos</a></li>
-                   
+                    <li><a href="/site/HTML/contatos.html">Contatos</a></li>               
+    
                 </ul>
             </nav>
         </header>
+        <style>
+            .carousel {
+              position: relative;
+              width: 100%;
+              max-width: 800px;
+              height: 400px;
+              margin: 20px auto;
+              overflow: hidden;
+              border-radius: 10px;
+              box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            }
+          
+            .slides {
+              display: flex;
+              transition: transform 0.5s ease-in-out;
+              width: 100%;
+            }
+          
+            .slides img {
+              width: 100%;
+              height: 100%;
+              object-fit: cover;
+              flex-shrink: 0;
+            }
+          
+            .prev, .next {
+              position: absolute;
+              top: 50%;
+              transform: translateY(-50%);
+              background: rgba(139, 97, 97, 0.5);
+              color: white;
+              border: none;
+              padding: 12px;
+              cursor: pointer;
+              font-size: 20px;
+              border-radius: 50%;
+            }
+          
+            .prev {
+              left: 15px;
+            }
+          
+            .next {
+              right: 15px;
+            }
+          
+            .text-block {
+              max-width: 800px;
+              margin: 20px auto;
+              padding: 0 20px;
+            }
+          
+            .text-block h2 {
+              color: #800000;
+            }
+          </style>
 
-        <main>
-            <section class="form-section">
-                <form>
-                    <label for="name">Nome:</label>
-                    <input type="text" id="name" name="name">
 
-                    <label for="email">Email:</label>
-                    <input type="email" id="email" name="email">
+        <body>
+            <div class="carousel">
+                <div class="slides">
+                  <img src="../imagens/ypua1.webp" alt="Foto 1">
+                  <img src="../imagens/casa.jpg" alt="Foto 2">
+                  <img src="../imagens/foto1.jpg" alt="Foto 3">
+                  <img src="../imagens/foto5.jpeg" alt="Foto 4">
+                  <img src="../imagens/pousada.jpg" alt="Foto 5">
+                </div>
+                <button class="prev">&#10094;</button>
+                <button class="next">&#10095;</button>
+              </div>
 
-                    <label for="cpf">CPF:</label>
-                    <input type="text" id="cpf" name="cpf">
+                    <div class="text-block">
+                        <h2>Pousada Quinta do Ypuã </h2>
+                        <p>A pousada Quinta do Ypuá oferece aos seus clientes um recanto de aconchego e 
+                            lazer, em ambiente rústico e agradável. Ideal para quem gosta de fugir da
+                             rotina e procura um local de paz para descansar e curtir a natureza.</p>
+                        <p>“O Ypuá tem tudo a ver com a natureza, dá para sentir a energia do lugar.
+                             Eu me preocupo se você vai comer bem, dormir bem e se vai se sentir em casa. 
+                             Vou te mostrar onde encontrar os melhores frutos do mar, onde curtir a melhor
+                              praia e as melhores ondas. Mas se você não quiser fazer nada eu também 
+                              conheço o melhor lugar.”</p>
+                    </div>
+                </div>
+            </div>
 
-                    <label for="phone">Telefone:</label>
-                    <input type="tel" id="phone" name="phone">
-
-                    <label for="date">Data:</label>
-                    <input type="date" id="date" name="date">
-                </form>
-            </section>
-
-            <section class="payment-section">
-                <h2>Pagamento</h2>
-                <form> 
-                    <label for="email">Cartão de Crédito</label>
-                    <input type="Cartao de credito" id="Cartao de credito" name="cartao de credito">
-
-                    <li>Dinheiro</li>
-                    <li>Boleto</li>
-                </form>
-            </section>
-        </main>
-    </div>
-    <script src="/site/scritp.js"></script>
-</body>
-</html>
+            <script>
+                let currentIndex = 0;
+                const slides = document.querySelector(".slides");
+                const totalImages = document.querySelectorAll(".slides img").length;
+                
+                document.querySelector(".next").addEventListener("click", () => {
+                  currentIndex = (currentIndex + 1) % totalImages;
+                  updateSlide();
+                });
+                
+                document.querySelector(".prev").addEventListener("click", () => {
+                  currentIndex = (currentIndex - 1 + totalImages) % totalImages;
+                  updateSlide();
+                });
+                
+                function updateSlide() {
+                  slides.style.transform = `translateX(-${currentIndex * 100}%)`;
+                }
+                </script>
+                
+        </body>
+        </html>
