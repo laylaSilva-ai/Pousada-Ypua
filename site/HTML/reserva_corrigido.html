@@ -6,6 +6,71 @@
     <title>Pousada Quinta do Ypuã</title>
     <link rel="stylesheet" href="/site/CSS/reserva.css">
     <link rel="icon" type="image/png" href="/site/img/Design sem nome.png">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+        }
+        .container {
+            max-width: 800px;
+            margin: auto;
+            padding: 20px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        header {
+            text-align: center;
+   
+            margin-bottom: 20px;
+        }
+        nav ul {
+            list-style: none;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+        }
+        nav ul li {
+            margin: 0 15px;
+        }
+        nav ul li a {
+            text-decoration: none;
+            color: #333;
+            font-weight: bold;
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+        }
+        input, select, textarea {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        .telefone {
+            display: flex;
+            gap: 10px;
+        }
+        .telefone input {
+            width: auto;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #218838;
+        }
+        #total {
+            font-weight: bold;
+        }
+    </style>
 </head>
 <body>
 <div class="container">
@@ -13,7 +78,7 @@
         <h1>Pousada Quinta do Ypuã</h1>
         <nav>
             <ul>
-                <li><a href="/site/HTML/home.html">Sobre</a></li>
+                <li><a href="/site/HTML/index.html">Sobre</a></li>
                 <li><a href="/site/HTML/quartos.html">Quartos</a></li>
                 <li><a href="/site/HTML/contatos.html">Contatos</a></li>
             </ul>
@@ -21,24 +86,24 @@
     </header>
 
     <div class="container" id="step-1">
-        <h1>Venha viver<span> os melhores dias da </span> sua vida!</h1>
+        <h1>Venha viver <span>os melhores dias da</span> sua vida!</h1>
 
-        <br><label for="checkin">Check-in:</label>
-        <input type="date" id="checkin">
+        <label for="checkin">Check-in:</label>
+        <input type="date" id="checkin" name="checkin" required>
 
-        <br><br><label for="checkout">Check-out:</label>
-        <input type="date" id="checkout">
+        <label for="checkout">Check-out:</label>
+        <input type="date" id="checkout" name="checkout" required>
 
-        <br><br><label for="guests">Número de Adultos:</label>
-        <select id="guests">
+        <label for="guests">Número de Adultos:</label>
+        <select id="guests" name="guests">
             <option value="1">1 Adulto</option>
             <option value="2">2 Adultos</option>
             <option value="3">3 Adultos</option>
             <option value="4">4 Adultos</option>
         </select>
 
-        <br><br><label for="children">Número de Crianças:</label>
-        <select id="children">
+        <label for="children">Número de Crianças:</label>
+        <select id="children" name="children">
             <option value="0">0 Crianças</option>
             <option value="1">1 Criança</option>
             <option value="2">2 Crianças</option>
@@ -47,35 +112,41 @@
         </select>
 
         <div id="total">
-            <br> Noite(s): <span id="nights">0</span> <br>
-            <br> Total: R$<span id="total-price">0</span>
+            Noite(s): <span id="nights">0</span><br>
+            Total: R$<span id="total-price">0</span>
         </div>
 
-        <br><button id="simulate-btn">Simular reserva</button>
+        <button id="simulate-btn">Simular reserva</button>
     </div>
 
     <div class="container" id="step-2" style="display: none;">
         <h1>Detalhes do Hóspede</h1>
+<<<<<<< HEAD
         <form id="guest-form" method="POST" action="/site/PHP/salva.php">
         
+=======
+
+        <form id="guest-form" action="../PHP/salvar_reserva.php" method="POST">
+
+>>>>>>> dbeba7e6fc99fb8cef0c8888c07d0c8a2d8e70c2
 
             <label for="name">Nome:</label>
             <input type="text" id="name" name="nome" required>
 
-            <br><br><label for="email">Email:</label>
+            <label for="email">Email:</label>
             <input type="email" id="email" name="email" required>
 
-            <br><br><label for="telefone">Telefone:</label>
+            <label for="telefone">Telefone:</label>
             <div class="telefone">
                 <input type="text" id="ddd" name="ddd" placeholder="DDD" maxlength="3" required>
                 <input type="text" id="telefone" name="telefone" placeholder="Telefone" maxlength="10" required>
             </div>
 
-            <br><label for="special-requests">Pedidos Especiais:</label>
-            <br><textarea id="special-requests" name="pedidos_especiais" rows="4"></textarea>
+            <label for="special-requests">Pedidos Especiais:</label>
+            <textarea id="special-requests" name="pedidos_especiais" rows="4"></textarea>
 
             <h2>Resumo da Reserva</h2>
-            <p><b>Tipo de Acomodação:</b> </p>
+            <p><b>Tipo de Acomodação:</b> Padrão</p>
             <p><b>Data:</b> <span id="summary-dates"></span></p>
             <p><b>Adultos:</b> <span id="summary-adults"></span></p>
             <p><b>Crianças:</b> <span id="summary-children"></span></p>
@@ -90,7 +161,7 @@
             <input type="hidden" name="criancas" id="form-children">
             <input type="hidden" name="total" id="form-total">
 
-            <br><br><button type="submit">Finalizar Reserva</button>
+            <button type="submit">Finalizar Reserva</button>
         </form>
     </div>
 
@@ -136,32 +207,46 @@
             document.getElementById('form-children').value = children;
             document.getElementById('form-total').value = total.toFixed(2);
 
+            // Armazena no localStorage (opcional, para persistência)
+            localStorage.setItem('checkin', checkin);
+            localStorage.setItem('checkout', checkout);
+            localStorage.setItem('nights', nights);
+            localStorage.setItem('guests', guests);
+            localStorage.setItem('children', children);
+            localStorage.setItem('total', total.toFixed(2));
+
             document.getElementById('step-1').style.display = 'none';
             document.getElementById('step-2').style.display = 'block';
         });
-        // Verifica se todos os campos estão preenchidos antes do envio
+
+        // Validação no envio do formulário
         document.getElementById('guest-form').addEventListener('submit', function(event) {
-            // Verifica se os campos obrigatórios estão preenchidos
             const nome = document.getElementById('name').value;
             const email = document.getElementById('email').value;
             const ddd = document.getElementById('ddd').value;
             const telefone = document.getElementById('telefone').value;
-            
-            if (!nome || !email || !ddd || !telefone) {
+            const checkin = document.getElementById('form-checkin').value;
+            const checkout = document.getElementById('form-checkout').value;
+            const noites = document.getElementById('form-noites').value;
+
+            if (!nome || !email || !ddd || !telefone || !checkin || !checkout || !noites) {
                 alert('Por favor, preencha todos os campos obrigatórios.');
                 event.preventDefault();
                 return false;
             }
-            
-            // Confirma que os campos hidden estão preenchidos
-            if (!document.getElementById('form-checkin').value || 
-                
-             !document.getElementById('form-checkout').value || 
-                !document.getElementById('form-noites').value) {
-                alert('Houve um problema com seus dados de reserva. Por favor, tente novamente.');
+
+            // Validação básica de formato
+            if (!/^\d{2,3}$/.test(ddd)) {
+                alert('DDD inválido. Use 2 ou 3 dígitos.');
                 event.preventDefault();
                 return false;
             }
+            if (!/^\d{8,9}$/.test(telefone)) {
+                alert('Telefone inválido. Use 8 ou 9 dígitos.');
+                event.preventDefault();
+                return false;
+            }
+
             
             return true;
 

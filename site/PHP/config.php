@@ -7,7 +7,7 @@ error_reporting(E_ALL);
 $servername = "localhost";
 $username = "root";
 $password = "";
-$dbname = "sousada";
+$dbname = "pousada_ypua";
 
 // Cria a conexão
 $conn = new mysqli($servername, $username, $password, $dbname);
