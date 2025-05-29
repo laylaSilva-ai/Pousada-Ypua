@@ -1,133 +1,269 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pousada Quinta do Ypuã</title>
-    <link rel="stylesheet" href="/site/CSS/quarto.css">
-    <link rel="stylesheet" href="/site/CSS/style.css">
- <link rel="icon" type="image/png" href="/site/img/Design sem nome.png ">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pousada Quinta do Ypuã</title>
+  <link rel="stylesheet" href="/site/CSS/quarto.css">
+  <link rel="stylesheet" href="/site/CSS/style.css">
+  <link rel="icon" type="image/png" href="/site/img/Design sem nome.png">
+
+  <style>
+    * {
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    body {
+      transition: background-color 0.3s, color 0.3s;
+      margin: 0;
+      padding: 0;
+    }
+
+    .container {
+   
+
+   
+  
+    }
+
+    /* ---------- MODO CLARO ---------- */
+    body.light-mode {
+      background-color: #f9f9f9;
+      color: #333;
+    }
+
+    body.light-mode header,
+    body.light-mode nav,
+    body.light-mode .carousel,
+    body.light-mode .text-block {
+      background-color: #b33b2e;
+      box-shadow: none;
+      border: none;
+    }
+
+    body.light-mode .text-block {
+      border-radius: 10px;
+      padding: 20px;
+    }
+    body.light-mode .text-block h2 {
+      color: #000000; /* cor destacada no modo escuro para o h2 */
+    }
+    body.light-mode .theme-toggle {
+      background-color: #800000;
+      color: #fff;
+    }
+
+    body.light-mode a {
+      color: #000000;
+      text-decoration: none;
+    }
+
+    body.light-mode h1 {
+      color: #000000; /* cor destacada no modo claro */
+    }
+
+    /* ---------- MODO ESCURO ---------- */
+    body.dark-mode {
+      background-color: #4e0505;
+      color: #e0e0e0;
+    }
+
+    body.dark-mode header,
+    body.dark-mode nav,
+    body.dark-mode .carousel,
+    body.dark-mode .text-block {
+      background-color: #570000;
+      box-shadow: none;
+      border: none;
+    }
+
+    body.dark-mode .text-block {
+      border-radius: 10px;
+      padding: 20px;
+      color: #ffffff;
+    }
+
+    body.dark-mode .theme-toggle {
+      background-color: #bb2929;
+      color: #ffffff;
+    }
+
+    body.dark-mode a {
+      color: #ffffff;
+      text-decoration: none;
+    }
+
+    body.dark-mode h1 {
+      color: #ffffff; /* cor destacada no modo escuro */
+    }
+
+    body.dark-mode .text-block h2 {
+      color: #ffffff; /* cor destacada no modo escuro para o h2 */
+    }
+
+    .theme-toggle {
+      position: fixed;
+      top: 20px;
+      right: 10px;
+      padding: 10px 15px;
+      border: none;
+      border-radius: 500px;
+      cursor: pointer;
+      z-index: 1000;
+      transition: background-color 0.3s, color 0.3s;
+      font-size: 20px;
+    }
+
+    .carousel {
+      position: relative;
+      width: 100%;
+      max-width: 800px;
+      height: 400px;
+      margin: 20px auto;
+      overflow: hidden;
+      border-radius: 10px;
+    }
+
+    .slides {
+      display: flex;
+      transition: transform 0.5s ease-in-out;
+      width: 100%;
+    }
+
+    .slides img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      flex-shrink: 0;
+    }
+
+    .prev, .next {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(0, 0, 0, 0.4);
+      color: white;
+      border: none;
+      padding: 12px;
+      cursor: pointer;
+      font-size: 20px;
+      border-radius: 50%;
+      transition: background 0.3s;
+    }
+
+    .prev:hover, .next:hover {
+      background: rgba(0, 0, 0, 0.6);
+    }
+
+    .prev { left: 15px; }
+    .next { right: 15px; }
+
+    .text-block {
+      max-width: 800px;
+      margin: 20px auto;
+      padding: 0 20px;
+    }
+
+    .text-block h2 {
+      color: #800000;
+    }
+  </style>
 </head>
 
-
 <body>
+  <button class="theme-toggle" onclick="toggleTheme()">🌞</button>
 
-    <div class="container">
-        <header>
-            <h1>Pousada Quinta do Ypuã</h1>
-            <nav>
-                <ul>
-                    <li><a href="/site/HTML/index.html">Sobre</a></li>
-                    <li><a href="/site/HTML/quartos.html">Quartos</a></li>
-                    <li><a href="/site/HTML/contatos.html">Contatos</a></li>               
-    
-                </ul>
-            </nav>
-        </header>
-        <style>
-            .carousel {
-              position: relative;
-              width: 100%;
-              max-width: 800px;
-              height: 400px;
-              margin: 20px auto;
-              overflow: hidden;
-              border-radius: 10px;
-              box-shadow: 0 0 10px rgba(0,0,0,0.1);
-            }
-          
-            .slides {
-              display: flex;
-              transition: transform 0.5s ease-in-out;
-              width: 100%;
-            }
-          
-            .slides img {
-              width: 100%;
-              height: 100%;
-              object-fit: cover;
-              flex-shrink: 0;
-            }
-          
-            .prev, .next {
-              position: absolute;
-              top: 50%;
-              transform: translateY(-50%);
-              background: rgba(139, 97, 97, 0.5);
-              color: white;
-              border: none;
-              padding: 12px;
-              cursor: pointer;
-              font-size: 20px;
-              border-radius: 50%;
-            }
-          
-            .prev {
-              left: 15px;
-            }
-          
-            .next {
-              right: 15px;
-            }
-          
-            .text-block {
-              max-width: 800px;
-              margin: 20px auto;
-              padding: 0 20px;
-            }
-          
-            .text-block h2 {
-              color: #800000;
-            }
-          </style>
+  <div class="container">
+    <header>
+      <h1>Pousada Quinta do Ypuã</h1>
+      <nav>
+        <ul>
+          <li><a href="/site/HTML/index.html">Sobre</a></li>
+          <li><a href="/site/HTML/quartos.html">Quartos</a></li>
+          <li><a href="/site/HTML/contatos.html">Contatos</a></li>
+        </ul>
+      </nav>
+    </header>
 
+    <div class="carousel">
+      <div class="slides">
+        <img src="../imagens/ypua1.webp" alt="Foto 1">
+        <img src="../imagens/casa.jpg" alt="Foto 2">
+        <img src="../imagens/foto1.jpg" alt="Foto 3">
+        <img src="../imagens/foto5.jpeg" alt="Foto 4">
+        <img src="../imagens/pousada.jpg" alt="Foto 5">
+      </div>
+      <button class="prev">&#10094;</button>
+      <button class="next">&#10095;</button>
+    </div>
 
-        <body>
-            <div class="carousel">
-                <div class="slides">
-                  <img src="../imagens/ypua1.webp" alt="Foto 1">
-                  <img src="../imagens/casa.jpg" alt="Foto 2">
-                  <img src="../imagens/foto1.jpg" alt="Foto 3">
-                  <img src="../imagens/foto5.jpeg" alt="Foto 4">
-                  <img src="../imagens/pousada.jpg" alt="Foto 5">
-                </div>
-                <button class="prev">&#10094;</button>
-                <button class="next">&#10095;</button>
-              </div>
+    <div class="text-block">
+      <h2>Pousada Quinta do Ypuã</h2>
+      <p>A pousada Quinta do Ypuá oferece aos seus clientes um recanto de aconchego e 
+        lazer, em ambiente rústico e agradável. Ideal para quem gosta de fugir da
+        rotina e procura um local de paz para descansar e curtir a natureza.</p>
+      <p>“O Ypuá tem tudo a ver com a natureza, dá para sentir a energia do lugar.
+        Eu me preocupo se você vai comer bem, dormir bem e se vai se sentir em casa. 
+        Vou te mostrar onde encontrar os melhores frutos do mar, onde curtir a melhor
+        praia e as melhores ondas. Mas se você não quiser fazer nada eu também 
+        conheço o melhor lugar.”</p>
+    </div>
+  </div>
 
-                    <div class="text-block">
-                        <h2>Pousada Quinta do Ypuã </h2>
-                        <p>A pousada Quinta do Ypuá oferece aos seus clientes um recanto de aconchego e 
-                            lazer, em ambiente rústico e agradável. Ideal para quem gosta de fugir da
-                             rotina e procura um local de paz para descansar e curtir a natureza.</p>
-                        <p>“O Ypuá tem tudo a ver com a natureza, dá para sentir a energia do lugar.
-                             Eu me preocupo se você vai comer bem, dormir bem e se vai se sentir em casa. 
-                             Vou te mostrar onde encontrar os melhores frutos do mar, onde curtir a melhor
-                              praia e as melhores ondas. Mas se você não quiser fazer nada eu também 
-                              conheço o melhor lugar.”</p>
-                    </div>
-                </div>
-            </div>
+  <script>
+    let currentIndex = 0;
+    const slides = document.querySelector(".slides");
+    const totalImages = document.querySelectorAll(".slides img").length;
+    const themeToggleBtn = document.querySelector('.theme-toggle');
+    const body = document.body;
 
-            <script>
-                let currentIndex = 0;
-                const slides = document.querySelector(".slides");
-                const totalImages = document.querySelectorAll(".slides img").length;
-                
-                document.querySelector(".next").addEventListener("click", () => {
-                  currentIndex = (currentIndex + 1) % totalImages;
-                  updateSlide();
-                });
-                
-                document.querySelector(".prev").addEventListener("click", () => {
-                  currentIndex = (currentIndex - 1 + totalImages) % totalImages;
-                  updateSlide();
-                });
-                
-                function updateSlide() {
-                  slides.style.transform = `translateX(-${currentIndex * 100}%)`;
-                }
-                </script>
-                
-        </body>
-        </html>
+    document.querySelector(".next").addEventListener("click", () => {
+      currentIndex = (currentIndex + 1) % totalImages;
+      updateSlide();
+    });
+
+    document.querySelector(".prev").addEventListener("click", () => {
+      currentIndex = (currentIndex - 1 + totalImages) % totalImages;
+      updateSlide();
+    });
+
+    function updateSlide() {
+      slides.style.transform = `translateX(-${currentIndex * 100}%)`;
+    }
+
+    // Tema com localStorage
+    const savedTheme = localStorage.getItem('theme');
+
+    if (savedTheme) {
+      body.classList.add(savedTheme);
+      updateThemeIcon();
+    } else {
+      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      body.classList.add(prefersDark ? 'dark-mode' : 'light-mode');
+      updateThemeIcon();
+    }
+
+    function toggleTheme() {
+      if (body.classList.contains('light-mode')) {
+        body.classList.remove('light-mode');
+        body.classList.add('dark-mode');
+        localStorage.setItem('theme', 'dark-mode');
+      } else {
+        body.classList.remove('dark-mode');
+        body.classList.add('light-mode');
+        localStorage.setItem('theme', 'light-mode');
+      }
+      updateThemeIcon();
+    }
+
+    function updateThemeIcon() {
+      if (body.classList.contains('light-mode')) {
+        themeToggleBtn.textContent = '🌞';
+      } else {
+        themeToggleBtn.textContent = '🌙';
+      }
+    }
+  </script>
+</body>
+</html>

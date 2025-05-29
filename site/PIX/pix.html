@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pagamento via MercadoPago</title>
     <style>
-           body {
+        body {
             background: linear-gradient(135deg, #884a4acb 0%, #eaeaea 100%);
             font-family: 'Segoe UI', sans-serif;
             display: flex;
@@ -16,7 +16,7 @@
         }
 
         .Pix {
-            background-color:rgba(58, 43, 43, 0.363);
+            background-color: rgba(58, 43, 43, 0.363);
             padding: 40px;
             border-radius: 16px;
             box-shadow: 0 8px 24px rgba(0,0,0,0.1);
@@ -81,28 +81,29 @@
 </head>
 <body>
     <div class="Pix">
-    <h2>Pagamento via Pix: </h2>
+        <h2>Pagamento via Pix:</h2>
 
-    <form action="processa_pix.php" method="POST">
-        <label for="email">E-mail do Cliente:</label><br>
-        <input type="email" id="email" name="email" required><br><br>
-        
-        <label for="valor">Valor:</label><br>
-        <input type="text" id="valor" name="valor" required placeholder="Ex: 0.10">
-        <br><br>
-        
-        <button type="submit">Pagar</button>
-    </form>
+        <form action="processa_pix.php" method="POST">
+            <label for="email">E-mail do Cliente:</label><br>
+            <input type="email" id="email" name="email" required><br><br>
+            
+            <label for="valor">Valor:</label><br>
+            <input type="text" id="valor" name="valor" required placeholder="Ex: 0.10">
+            <br><br>
+            
+            <button type="submit">Pagar</button>
+        </form>
     </div>
+
     <script>
         // Preencher os campos automaticamente com localStorage
         window.onload = () => {
-          const email = localStorage.getItem('email');
-          const valor = localStorage.getItem('valor');
-      
-          if (email) document.getElementById('email').value = email;
-          if (valor) document.getElementById('valor').value = valor;
+            const email = localStorage.getItem('email');
+            const valor = localStorage.getItem('total'); // Corrigido aqui
+
+            if (email) document.getElementById('email').value = email;
+            if (valor) document.getElementById('valor').value = valor;
         };
-      </script>
+    </script>
 </body>
 </html>

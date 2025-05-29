@@ -1,125 +1,225 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pousada Quinta do Ypuã</title>
-    <link rel="stylesheet" href="/site/CSS/style.css">
-    <link rel="stylesheet" href="/site/CSS/quarto.css">
-    <link rel="icon" type="image/png" href="/site/img/Design sem nome.png ">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Pousada Quinta do Ypuã</title>
+  <link rel="stylesheet" href="/site/CSS/style.css" />
+  <link rel="stylesheet" href="/site/CSS/quarto.css" />
+  <link rel="icon" type="image/png" href="/site/img/Design sem nome.png" />
 
+  <style>
+    body, header, nav, a {
+      transition: background-color 0.5s ease, color 0.5s ease;
+    }
+
+    body.light-mode {
+      background-color: #f9f9f9;
+      color: #333;
+    }
+
+    body.light-mode header,
+    body.light-mode nav {
+      background-color: #ffffff;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+
+    body.light-mode a {
+      color: #800000;
+      text-decoration: none;
+    }
+
+    body.dark-mode {
+      background-color: #4e0505;
+      color: #e0e0e0;
+    }
+
+    body.dark-mode header,
+    body.dark-mode nav {
+      background-color: #690505;
+      box-shadow: 0 2px 4px rgba(255, 255, 255, 0.05);
+    }
+
+    body.dark-mode a {
+      color: #ffffff;
+      text-decoration: none;
+    }
+
+    .theme-toggle {
+      position: fixed;
+      top: 20px;
+      right: 10px;
+      padding: 10px 15px;
+      border: none;
+      border-radius: 500px;
+      background-color: #800000;
+      color: #fff;
+      cursor: pointer;
+      z-index: 1000;
+      transition: background-color 0.3s ease, color 0.3s ease;
+      font-size: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 50px;
+      height: 50px;
+    }
+
+    body.dark-mode .theme-toggle {
+      background-color: #bb2929;
+      color: #ffffff;
+    }
+
+    .container, .accommodation, .accommodation-item, header, nav, section, .banner {
+  
+      box-shadow: none !important;
+      background: transparent !important;
+    }
+
+   body.dark-mode .delta{
+    color:#ffffff
+   }
+   body.dark-mode .icons{
+    color:#ffffff
+   }
+  </style>
 </head>
 
-<div class="container">
-    <header>
-        <h1>Pousada Quinta do Ypuã</h1>
-        <nav>
-            <ul>
-                <li><a href="/site/HTML/index.html">Sobre</a></li>
-                <li><a href="/site/HTML/quartos.html">Quartos</a></li>
-                <li><a href="/site/HTML/contatos.html">Contatos</a></li>               
-
-            </ul>
-        </nav>
-    </header>
 <body>
+  <!-- Botão de alternar tema -->
+  <button class="theme-toggle" aria-label="Alternar tema" onclick="toggleTheme()">
+    <span id="theme-icon">🌙</span>
+  </button>
+
+  <div class="container">
+    <header>
+      <h1>Pousada Quinta do Ypuã</h1>
+      <nav>
+        <ul>
+          <li><a href="/site/HTML/index.html">Sobre</a></li>
+          <li><a href="/site/HTML/quartos.html">Quartos</a></li>
+          <li><a href="/site/HTML/contatos.html">Contatos</a></li>
+        </ul>
+      </nav>
+    </header>
+
     <div class="container">
-        <!-- Banner Section -->
-        <div class="banner">
-            <div class="banner-text">
-                <h1>CONHEÇA NOSSAS ACOMODAÇÕES</h1>
-            </div>
-            <div class="banner-image">
-                <img src="/site/imagens/quarto.jpeg" alt="Imagem de Acomodação">
-              <img src="/site/imagens/foto1.jpg"  alt="Imagem da Pousada">
-              <img src="/site/imagens/casa.jpg"  alt="Imagem da casa">
-            </div>
+      <!-- Banner Section -->
+      <div class="banner">
+        <div class="banner-text">
+          <h1>CONHEÇA NOSSAS ACOMODAÇÕES</h1>
         </div>
+        <div class="banner-image">
+          <img src="/site/imagens/quarto.jpeg" alt="Imagem de Acomodação" />
+          <img src="/site/imagens/foto1.jpg" alt="Imagem da Pousada" />
+          <img src="/site/imagens/casa.jpg" alt="Imagem da casa" />
+        </div>
+      </div>
 
-        <!-- Accommodation Section -->
-        <section class="accommodation">
-            <h2>Nossas acomodações: </h2>
-            <br><br>
+      <!-- Accommodation Section -->
+      <section class="accommodation">
+        <h2>Nossas acomodações:</h2>
+        <br /><br />
 
-             
-            <!-- Accommodation Options -->
-            <div class="accommodation-list">
-                <div class="accommodation-item">
-                    <img src="/site/imagens/quarto2.jpg" alt="Quartos">
-                    <div class="details">
-                        <h3>Quartos</h3>
-                        <p>Obs: Os valores exibidos no site estão sujeitos a constantes atualizações. 
-                            Para mais detalhes entre em contato por telefone.</p>
-                        <p><strong>Camas:</strong> 2 camas solteiros e 1 casal</p>
-                        <div class="icons">
-                            <!-- Coloque os ícones representativos aqui -->
-                            <span>Wi-Fi</span>
-                            <span>TV</span>
-                            <span>Ar Condicionado</span>
-                        </div>
-                    </div>
-                    <div class="price">
-                        <p>R$380</p>
-                        <span>Por noite</span>
-                        <a href="/site/HTML/reserva_corrigido.html?preco=001"><button>Simular reserva</button></a>
-
-                    </div>
-                </div>
-
-                <div class="accommodation-item">
-                    <img src="/site/imagens/quarto.jpeg" alt="Quartos sem Cozinha">
-                    <div class="details">
-                        <h3>Quartos sem Cozinha</h3>
-                        <p>Obs: Os valores exibidos no site estão sujeitos a constantes atualizações.
-                             Para mais detalhes entre em contato por telefone.</p>
-                        <p><strong>Camas:</strong> 1 Solteiro, 1 Casal</p>
-                        <div class="icons">
-                            <span>Wi-Fi</span>
-                            <span>TV</span>
-                            <span>Ar Condicionado</span>
-                        </div>
-                    </div>
-                    <div class="price">
-                        <p>R$690</p>
-                        <span>Por noite</span>
-                        <a href="/site/HTML/reserva_corrigido.html?preco=690"><button>Simular reserva</button></a>
-
-                    </div>
-                    </div>
-
-                    <div class="accommodation-item">
-                        <img src="/site/imagens/quarto3.jpg" alt="Quartos com Cozinha">
-                        <div class="details">
-                            <h3>Quartos com Cozinha</h3>
-                            <p>Obs: Os valores exibidos no site estão sujeitos a constantes atualizações.
-                                 Para mais detalhes entre em contato por telefone.</p>
-                       
-                       
-                       
-                       
-                       
-                       
-                       
-                       
-                                 <p><strong>Camas:</strong> 2 Casal</p>
-                            <div class="icons">
-                                <span>Wi-Fi</span>
-                                <span>TV</span>
-                                <sapn>Cozinha com geladeira</sapn>
-                                <span>Ar Condicionado</Canvas></span>
-                            </div>
-                        </div>
-                        <div class="price">
-                            <p>R$390</p>
-                            <span>Por noite</span>
-                            <a href="/site/HTML/reserva_corrigido.html?preco=390"><button>Simular reserva</button></a>
-
-                        </div>
-                        
-                </div>
+        <div class="accommodation-list">
+          <div class="accommodation-item">
+            <img src="/site/imagens/quarto2.jpg" alt="Quartos" />
+            <div class="details">
+              <h3>Quartos</h3>
+              <p class="delta">Obs: Os valores exibidos no site estão sujeitos a constantes atualizações. Para mais detalhes entre em contato por telefone.</p>
+              <p class="delta"><strong>Camas:</strong> 2 camas solteiros e 1 casal</p>
+              <div class="icons">
+                <span>Wi-Fi</span>
+                <span>TV</span>
+                <span>Ar Condicionado</span>
+              </div>
             </div>
-        </section>
-        <script src="/site/quarto.js"></script>
+            <div class="price">
+              <p>R$380</p>
+              <span>Por noite</span>
+              <a href="/site/HTML/reserva_corrigido.html?preco=001"><button>Simular reserva</button></a>
+            </div>
+          </div>
+
+          <div class="accommodation-item">
+            <img src="/site/imagens/quarto.jpeg" alt="Quartos sem Cozinha" />
+            <div class="details">
+              <h3>Quartos sem Cozinha</h3>
+              <p class="delta">Obs: Os valores exibidos no site estão sujeitos a constantes atualizações. Para mais detalhes entre em contato por telefone.</p>
+              <p class="delta"><strong>Camas:</strong> 1 Solteiro, 1 Casal</p>
+              <div class="icons">
+                <span>Wi-Fi</span>
+                <span>TV</span>
+                <span>Ar Condicionado</span>
+              </div>
+            </div>
+            <div class="price">
+              <p>R$690</p>
+              <span>Por noite</span>
+              <a href="/site/HTML/reserva_corrigido.html?preco=690"><button>Simular reserva</button></a>
+            </div>
+          </div>
+
+          <div class="accommodation-item">
+            <img src="/site/imagens/quarto3.jpg" alt="Quartos com Cozinha" />
+            <div class="details">
+              <h3>Quartos com Cozinha</h3>
+              <p class="delta">Obs: Os valores exibidos no site estão sujeitos a constantes atualizações. Para mais detalhes entre em contato por telefone.</p>
+              <p class="delta"><strong>Camas:</strong> 2 Casal</p>
+              <div class="icons">
+                <span>Wi-Fi</span>
+                <span>TV</span>
+                <span>Cozinha com geladeira</span>
+                <span>Ar Condicionado</span>
+              </div>
+            </div>
+            <div class="price">
+              <p>R$390</p>
+              <span>Por noite</span>
+              <a href="/site/HTML/reserva_corrigido.html?preco=390"><button>Simular reserva</button></a>
+            </div>
+          </div>
+        </div>
+      </section>
     </div>
+
+    <script src="/site/quarto.js"></script>
+    <script>
+      const body = document.body;
+      const themeIcon = document.getElementById('theme-icon');
+
+      // Atualiza o emoji conforme o tema
+      function updateIcon() {
+        if (body.classList.contains('dark-mode')) {
+          themeIcon.textContent = '🌙';
+        } else {
+          themeIcon.textContent = '🌞';
+        }
+      }
+
+      // Carrega o tema salvo ou padrão
+      const savedTheme = localStorage.getItem('theme');
+      if (savedTheme) {
+        body.classList.add(savedTheme);
+      } else {
+        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        body.classList.add(prefersDark ? 'dark-mode' : 'light-mode');
+      }
+      updateIcon();
+
+      function toggleTheme() {
+        if (body.classList.contains('light-mode')) {
+          body.classList.remove('light-mode');
+          body.classList.add('dark-mode');
+          localStorage.setItem('theme', 'dark-mode');
+        } else {
+          body.classList.remove('dark-mode');
+          body.classList.add('light-mode');
+          localStorage.setItem('theme', 'light-mode');
+        }
+        updateIcon();
+      }
+    </script>
+  </div>
 </body>
 </html>
