@@ -218,11 +218,19 @@
     </div>
 
     <div class="container" id="step-2" style="display: none;">
+
       <h1>Detalhes do Hóspede</h1>
+
+        <h1>Detalhes do Hóspede</h1>
+
+        <form id="guest-form" method="POST" action="/site/PHP/salva.php">
+        
+
 
       <form id="guest-form" action="../PHP/salvar_reserva.php" method="POST">
         <label for="name">Nome:</label>
         <input type="text" id="name" name="nome" required>
+
 
         <label for="email">Email:</label>
         <input type="email" id="email" name="email" required>
@@ -336,5 +344,9 @@
       themeToggleBtn.textContent = body.classList.contains('light-mode') ? '🌞' : '🌙';
     }
   </script>
+
+       
+</div>
+
 </body>
 </html>
