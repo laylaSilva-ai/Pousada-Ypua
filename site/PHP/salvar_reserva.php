@@ -1,7 +1,7 @@
 <?php
 // Configuração do banco de dados
 $host = "localhost";
-$dbname = "pousadao";
+$dbname = "pousada_ypua";
 $user = "root";
 $pass = ""; // Coloque sua senha, se houver
 
@@ -33,7 +33,7 @@ try {
         ]);
 
         // Redireciona ou mostra mensagem
-        echo "<script>alert('Reserva realizada com sucesso!'); ;</script>";
+        echo "<script>alert('Reserva realizada com sucesso!');    window.location.href = '../HTML/escolha_pagamento.html'; ;</script>";
         exit;
     }
 

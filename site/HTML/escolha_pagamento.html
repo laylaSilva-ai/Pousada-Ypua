@@ -50,8 +50,8 @@ body {
     <h2>Escolha sua forma de pagamento:</h2><br>
     <a href="/site/PIX/pix.html">Pagamento via Pix</a><br><br>
     <a href="/site/HTML/pagamento_corrigido.html">Pagamento com Cartão</a><br><br>
-    <button onclick="window.location.href='/site/HTML/reserva_corrigido.html'">Voltar para a Reserva</button>
-</div>
+    <button type="button" onclick="window.location.href='/site/HTML/reserva_corrigido.html'">Voltar para a Reserva</button>
+
 
 </form>
     <script>
@@ -60,7 +60,7 @@ body {
             const valorTotal = localStorage.getItem('total');
             if (!valorTotal) {
                 alert('Erro ao carregar dados da reserva!');
-                window.location.href = '/site/HTML/reserva_corrigido.html'; // Redireciona de volta para a página de reserva
+                window.location.href = '../../reserva_corrigido.html'; // Redireciona de volta para a página de reserva
             }
         }
     </script>
