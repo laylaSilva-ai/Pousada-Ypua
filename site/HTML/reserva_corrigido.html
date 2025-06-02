@@ -78,7 +78,7 @@
         <h1>Pousada Quinta do Ypuã</h1>
         <nav>
             <ul>
-                <li><a href="/site/HTML/home.html">Sobre</a></li>
+                <li><a href="/site/HTML/index.html">Sobre</a></li>
                 <li><a href="/site/HTML/quartos.html">Quartos</a></li>
                 <li><a href="/site/HTML/contatos.html">Contatos</a></li>
             </ul>
@@ -121,7 +121,10 @@
 
  <div class="container" id="step-2" style="display: none;">
         <h1>Detalhes do Hóspede</h1>
-        <form id="guest-form" method="POST" action="/site/PHP/salvar_reserva.php">
+
+        <form id="guest-form" method="POST" action="/site/PHP/salva.php">
+    
+        <form id="guest-form" action="../PHP/salvar_reserva.php" method="POST">
             <label for="name">Nome:</label>
             <input type="text" id="name" name="nome" required>
 
@@ -238,6 +241,38 @@
                 event.preventDefault();
                 return false;
             }
+
+            
+            return true;
+
+        });
+
+        document.getElementById('proceed-to-payment').addEventListener('click', () => {
+    // Captura valores dos campos do formulário
+    const email = document.getElementById('email').value;
+    const nome = document.getElementById('name').value;
+    const documento = document.getElementById('identificationType').value;
+    const total = document.getElementById('form-total').value;
+
+    // Salva no localStorage para uso na próxima página
+    localStorage.setItem('email', email);
+    localStorage.setItem('nome', nome);
+    localStorage.setItem('documento', documento);
+    localStorage.setItem('valor', total);
+
+    // Redireciona para a página de pagamento
+    window.location.href = 'escolha_pagamento.html';
+});
+
+        // Preenche campos ocultos no submit
+        document.getElementById('guest-form').addEventListener('submit', () => {
+            document.getElementById('form-checkin').value = localStorage.getItem('checkin');
+            document.getElementById('form-checkout').value = localStorage.getItem('checkout');
+            document.getElementById('form-noites').value = localStorage.getItem('nights');
+            document.getElementById('form-guests').value = localStorage.getItem('guests');
+            document.getElementById('form-children').value = localStorage.getItem('children');
+            document.getElementById('form-total').value = localStorage.getItem('total');
+
         });
      
   window.onload = function() {
