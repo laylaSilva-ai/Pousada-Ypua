@@ -1,9 +1,10 @@
 <?php
-// Configuração do banco de dados
+
 $servername = "localhost";
 $username = "root";
 $password = "";
 $dbname = "pousada_ypua";
+
 
 try {
     // Corrigido: uso das variáveis certas
@@ -32,6 +33,7 @@ try {
         $stmt->execute([
             $nome, $email, $ddd, $telefone, $pedidos, $checkin, $checkout, $noites, $hospedes, $criancas, $total
         ]);
+
 
         // Mensagem de sucesso
         echo "<script>alert('Reserva realizada com sucesso!'); window.location.href='../HTML/escolha_pagamento.html';</script>";
