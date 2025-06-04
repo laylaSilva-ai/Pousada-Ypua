@@ -1,26 +1,17 @@
 {
-    "name": "aluno/pousada-ypua",
+    "name": "vboxuser/pousada-ypua-4",
     "autoload": {
         "psr-4": {
-            "Aluno\\PousadaYpua\\": "src/"
+            "Vboxuser\\PousadaYpua4\\": "src/"
         }
     },
     "authors": [
         {
-            "name": "laylasilva-ai",
-            "email": "laylasilva1342@gmail.com"
+            "name": "Ra899122",
+            "email": "raphaeljunior828@gmail.com"
         }
     ],
     "require": {
-        "phpmailer/phpmailer": "^6.9",
-        "mercadopago/sdk": "0.5.6"
-    },
-    "repositories": [
-  {
-    "type": "vcs",
-    "url": "https://github.com/mercadopago/sdk-php"
-  }
-]
-
-
+        "mercadopago/dx-php": "^3.5"
+    }
 }

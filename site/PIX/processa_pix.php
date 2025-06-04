@@ -1,5 +1,5 @@
 <?php
-$access_token = "APP_USR-8396377814695066-050520-e2f5c2a31b6777f1ed1ce48adfdbcd0a-2426274282"; // Seu token Mercado Pago
+$access_token = ""; // Seu token Mercado Pago
 $servername = "localhost";
 $username = "root";
 $password = "";

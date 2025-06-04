@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Boleto - Pousada Quinta do Ypuã</title>
+  <link rel="stylesheet" href="/site/CSS/reserva.css" />
+  <style>
+    body { font-family: Arial, sans-serif; background-color: #f4f4f4; padding: 20px; }
+    .boleto-container { max-width: 600px; margin: auto; background: white; padding: 20px; border-radius: 8px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
+    h1 { text-align: center; color: #800000; }
+    .boleto-dados { margin-top: 20px; }
+    .boleto-dados p { margin: 8px 0; }
+    .btn-imprimir { margin-top: 20px; display: block; width: 100%; padding: 10px; background: #800000; color: white; border: none; border-radius: 4px; text-align: center; text-decoration: none; font-weight: bold; cursor: pointer; }
+    .btn-imprimir:hover { background: #a00000; }
+  </style>
+</head>
+<body>
+
+<div class="boleto-container">
+  <h1>Boleto Bancário</h1>
+
+  <div class="boleto-dados">
+    <p><strong>Nome:</strong> <span id="nome"></span></p>
+    <p><strong>Email:</strong> <span id="email"></span></p>
+    <p><strong>Telefone:</strong> (<span id="ddd"></span>) <span id="telefone"></span></p>
+    <p><strong>Check-in:</strong> <span id="checkin"></span></p>
+    <p><strong>Check-out:</strong> <span id="checkout"></span></p>
+    <p><strong>Total a Pagar:</strong> R$ <span id="total"></span></p>
+    <p><strong>Boleto:</strong> <a href="#" id="link-boleto" target="_blank" rel="noopener noreferrer">Visualizar Boleto</a></p>
+    <p><strong>Código de Barras:</strong> <span id="codigo-barras"></span></p>
+    <p><strong>Status do Pagamento:</strong> <span id="status-pagamento">Aguardando</span></p>
+  </div>
+
+  <button onclick="window.print();" class="btn-imprimir">Imprimir Boleto</button>
+</div>
+
+<script>
+async function gerarBoleto() {
+  const dados = JSON.parse(localStorage.getItem('dadosReserva'));
+  if (!dados) {
+    alert('Nenhuma reserva encontrada.');
+    window.location.href = '/site/HTML/reserva_corrigido.html';
+    return;
+  }
+
+  // Preenche os campos com os dados da reserva
+  document.getElementById('nome').textContent = dados.nome || '';
+  document.getElementById('email').textContent = dados.email || '';
+  document.getElementById('ddd').textContent = dados.ddd || '';
+  document.getElementById('telefone').textContent = dados.telefone || '';
+  document.getElementById('checkin').textContent = dados.checkin || '';
+  document.getElementById('checkout').textContent = dados.checkout || '';
+  document.getElementById('total').textContent = parseFloat(dados.total).toFixed(2) || '0.00';
+
+  try {
+    if (dados.payment_id) {
+      // Se já existe um payment_id, consulta o status do pagamento
+      await consultarPagamento(dados.payment_id);
+      return;
+    }
+
+    // Chama o script PHP para gerar o boleto
+    const resposta = await fetch('/site/PHP/criar_boleto.php', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(dados)
+    });
+
+    if (!resposta.ok) {
+      throw new Error('Erro ao gerar boleto');
+    }
+
+    const resultado = await resposta.json();
+    if (!resultado.id_pagamento) {
+      throw new Error('Falha ao gerar boleto: ID do pagamento não recebido.');
+    }
+
+    // Atualiza a interface com os dados recebidos
+    document.getElementById('link-boleto').href = resultado.url_boleto || '#';
+    document.getElementById('codigo-barras').textContent = resultado.codigo_barras || 'Não disponível';
+    document.getElementById('status-pagamento').textContent = 'Aguardando pagamento';
+
+    dados.payment_id = resultado.id_pagamento;
+    localStorage.setItem('dadosReserva', JSON.stringify(dados));
+
+  } catch (err) {
+    alert('Erro ao gerar boleto: ' + err.message);
+  }
+}
+
+async function consultarPagamento(payment_id) {
+  try {
+    const resposta = await fetch('/site/PHP/boleto.php', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ payment_id })
+    });
+
+    if (!resposta.ok) {
+      throw new Error('Erro ao consultar pagamento');
+    }
+
+    const resultado = await resposta.json();
+    document.getElementById('status-pagamento').textContent = resultado.status || 'Desconhecido';
+
+  } catch (err) {
+    alert('Erro ao consultar pagamento: ' + err.message);
+  }
+}
+
+window.addEventListener('DOMContentLoaded', gerarBoleto);
+</script>
+
+</body>
+</html>

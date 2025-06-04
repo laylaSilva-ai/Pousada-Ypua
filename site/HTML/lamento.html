@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Você gosta de surpresas?</title>
+  <style>
+    body {
+      text-align: center;
+      margin-top: 100px;
+      font-family: Arial, sans-serif;
+    }
+    #container {
+      position: relative;
+      height: 500px;
+    }
+    #sim, #nao {
+      padding: 10px 20px;
+      font-size: 18px;
+      position: absolute;
+    }
+    #nao {
+      left: 50%;
+      transform: translateX(-50%);
+      bottom: 50px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Você deseja ver a nossa pagina de boleto?</h1>
+  <div id="container">
+    <button id="sim">Sim</button>
+    <button id="nao">Não</button>
+  </div>
+
+  <script>
+    const botaoSim = document.getElementById('sim');
+    const container = document.getElementById('container');
+
+    botaoSim.addEventListener('mouseenter', () => {
+      const containerRect = container.getBoundingClientRect();
+      const btnWidth = botaoSim.offsetWidth;
+      const btnHeight = botaoSim.offsetHeight;
+
+      const maxX = container.clientWidth - btnWidth;
+      const maxY = container.clientHeight - btnHeight;
+
+      const randX = Math.floor(Math.random() * maxX);
+      const randY = Math.floor(Math.random() * maxY);
+
+      botaoSim.style.left = `${randX}px`;
+      botaoSim.style.top = `${randY}px`;
+    });
+  </script>
+</body>
+</html>

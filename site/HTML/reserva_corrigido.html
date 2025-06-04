@@ -7,170 +7,31 @@
   <link rel="stylesheet" href="/site/CSS/reserva.css">
   <link rel="icon" type="image/png" href="/site/img/Design sem nome.png">
   <style>
-    * {
-      box-sizing: border-box;
-      font-family: Arial, sans-serif;
-    }
-
-    body {
-      margin: 0;
-      padding: 0;
-      transition: background-color 0.3s, color 0.3s;
-    }
-
-    body.light-mode {
-      --bg-color: #f4f4f4;
-      --text-color: #000;
-      --container-bg: #fff;
-      --btn-bg: #28a745;
-      --btn-hover: #218838;
-      --header-bg: #800000;
-      --total-border: #800000;
-    }
-
-    body.dark-mode {
-      --bg-color: #6d0404;
-      --text-color: #000000;
-      --container-bg: #500000;
-      --btn-bg: #2e7d32;
-      --btn-hover: #1b5e20;
-      --header-bg: #680000;
-      --total-border: #f3ba00;
-    }
-
-    body {
-      background-color: var(--bg-color);
-      color: var(--text-color);
-    }
-
-    .container {
-      max-width: 800px;
-      margin: auto;
-      padding: 20px;
-      background: var(--container-bg);
-      border-radius: 8px;
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    }
-
-    header {
-      background-color: var(--header-bg);
-      padding: 20px;
-      border-radius: 8px;
-      text-align: center;
-    }
-
-    header h1 {
-      color: #fff;
-      margin: 0;
-    }
-
-    nav ul {
-      list-style: none;
-      padding: 0;
-      display: flex;
-      justify-content: center;
-      margin-top: 10px;
-    }
-
-    nav ul li {
-      margin: 0 15px;
-    }
-
-    nav ul li a {
-      text-decoration: none;
-      color: var(--text-color);
-      font-weight: bold;
-    }
-
-    label {
-      display: block;
-      margin-bottom: 8px;
-    }
-
-    input, select, textarea {
-      width: 100%;
-      padding: 8px;
-      margin-bottom: 15px;
-      border: 1px solid #ccc;
-      border-radius: 4px;
-      background-color: #fff;
-      color: #000;
-    }
-
-    .telefone {
-      display: flex;
-      gap: 10px;
-    }
-
-    .telefone input {
-      width: auto;
-    }
-
-    button {
-      padding: 10px 20px;
-      background-color: var(--btn-bg);
-      color: white;
-      border: none;
-      border-radius: 4px;
-      cursor: pointer;
-    }
-
-    button:hover {
-      background-color: var(--btn-hover);
-    }
-
-    #total {
-      font-weight: bold;
-      border-left: 5px solid var(--total-border);
-      padding-left: 10px;
-      margin-top: 15px;
-    }
-
-    .theme-toggle {
-      position: fixed;
-      top: 20px;
-      right: 10px;
-      padding: 10px 15px;
-      border: none;
-      border-radius: 500px;
-      cursor: pointer;
-      z-index: 1000;
-      transition: background-color 0.3s, color 0.3s;
-      font-size: 20px;
-      background-color: var(--btn-bg);
-      color: white;
-    }
-
-    /* Estilo para destaque de palavras */
-    .destaque {
-      transition: color 0.3s ease;
-    }
-
-    body.light-mode .destaque {
-      color: #800000;
-    }
-    body.light-mode .melhor{
-      color: #000000;
-    }
-    body.dark-mode .destaque {
-      color: #ffffff;
-    }
-    body.dark-mode .melhor {
-      color: #f3ba00;
-    }
-    body.dark-mode .checke {
-      color: #ffffff;
-    }
-    body.dark-mode .email {
-      color: #ffffff;
-    }
-    body.dark-mode .nome {
-      color: #ffffff;
-    }
-    body.dark-mode .telefone{
-      color: #ffffff;
-    }
-
+    * { box-sizing: border-box; font-family: Arial, sans-serif; }
+    body { margin: 0; padding: 0; transition: background-color 0.3s, color 0.3s; }
+    body.light-mode { --bg-color: #f4f4f4; --text-color: #000; --container-bg: #fff; --btn-bg: #28a745; --btn-hover: #218838; --header-bg: #800000; --total-border: #800000; }
+    body.dark-mode { --bg-color: #6d0404; --text-color: #000000; --container-bg: #500000; --btn-bg: #2e7d32; --btn-hover: #1b5e20; --header-bg: #680000; --total-border: #f3ba00; }
+    body { background-color: var(--bg-color); color: var(--text-color); }
+    .container { max-width: 800px; margin: auto; padding: 20px; background: var(--container-bg); border-radius: 8px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
+    header { background-color: var(--header-bg); padding: 20px; border-radius: 8px; text-align: center; }
+    header h1 { color: #fff; margin: 0; }
+    nav ul { list-style: none; padding: 0; display: flex; justify-content: center; margin-top: 10px; }
+    nav ul li { margin: 0 15px; }
+    nav ul li a { text-decoration: none; color: var(--text-color); font-weight: bold; }
+    label { display: block; margin-bottom: 8px; }
+    input, select, textarea { width: 100%; padding: 8px; margin-bottom: 15px; border: 1px solid #ccc; border-radius: 4px; background-color: #fff; color: #000; }
+    .telefone { display: flex; gap: 10px; }
+    .telefone input { width: auto; }
+    button { padding: 10px 20px; background-color: var(--btn-bg); color: white; border: none; border-radius: 4px; cursor: pointer; }
+    button:hover { background-color: var(--btn-hover); }
+    #total { font-weight: bold; border-left: 5px solid var(--total-border); padding-left: 10px; margin-top: 15px; }
+    .theme-toggle { position: fixed; top: 20px; right: 10px; padding: 10px 15px; border: none; border-radius: 500px; cursor: pointer; z-index: 1000; transition: background-color 0.3s, color 0.3s; font-size: 20px; background-color: var(--btn-bg); color: white; }
+    .destaque { transition: color 0.3s ease; }
+    body.light-mode .destaque { color: #800000; }
+    body.light-mode .melhor { color: #000000; }
+    body.dark-mode .destaque { color: #ffffff; }
+    body.dark-mode .melhor { color: #f3ba00; }
+    body.dark-mode .checke, .email, .nome, .telefone { color: #ffffff; }
   </style>
 </head>
 <body>
@@ -227,31 +88,16 @@
       <button id="simulate-btn">Simular reserva</button>
     </div>
 
-<<<<<<< HEAD
+
     <div class="container" id="step-2" style="display: none;">
+      <h1>Detalhes do Hóspede</h1>
 
- 
-
-        <h1>Detalhes do Hóspede</h1>
-
-  
-        
-
-
-      <form id="guest-form" action="../PHP/salvar_reserva.php" method="POST">
-        <label for="name" class="nome">Nome:</label>
-        <input type="text" id="name" name="nome" required>
-
-=======
- <div class="container" id="step-2" style="display: none;">
-        <h1>Detalhes do Hóspede</h1>
-
-        <form id="guest-form" method="POST" action="/site/PHP/salva.php">
+      
     
         <form id="guest-form" action="../PHP/salvar_reserva.php" method="POST">
             <label for="name">Nome:</label>
             <input type="text" id="name" name="nome" required>
->>>>>>> 69761bf0161dba42703db9d53bf9b9dd73ae482b
+
 
         <label for="email" class="email">Email:</label>
         <input type="email" id="email" name="email" required>
@@ -262,7 +108,7 @@
           <input type="text" id="telefone" name="telefone" placeholder="Telefone" maxlength="10" required>
         </div>
 
-        <label for="special-requests" class>Pedidos Especiais:</label>
+        <label for="special-requests">Pedidos Especiais:</label>
         <textarea id="special-requests" name="pedidos_especiais" rows="4"></textarea>
 
         <h2>Resumo da Reserva</h2>
@@ -324,16 +170,56 @@
       document.getElementById('form-total').value = total.toFixed(2);
     }
 
+    function salvarNoLocalStorage() {
+      const dadosReserva = {
+        checkin: document.getElementById('checkin').value,
+        checkout: document.getElementById('checkout').value,
+        adultos: document.getElementById('guests').value,
+        criancas: document.getElementById('children').value,
+        noites: document.getElementById('nights').textContent,
+        total: document.getElementById('total-price').textContent,
+        nome: document.getElementById('name')?.value || '',
+        email: document.getElementById('email')?.value || '',
+        ddd: document.getElementById('ddd')?.value || '',
+        telefone: document.getElementById('telefone')?.value || '',
+        pedidos_especiais: document.getElementById('special-requests')?.value || ''
+      };
+      localStorage.setItem('dadosReserva', JSON.stringify(dadosReserva));
+    }
+
+    function carregarDoLocalStorage() {
+      const dados = JSON.parse(localStorage.getItem('dadosReserva'));
+      if (dados) {
+        document.getElementById('checkin').value = dados.checkin || '';
+        document.getElementById('checkout').value = dados.checkout || '';
+        document.getElementById('guests').value = dados.adultos || '1';
+        document.getElementById('children').value = dados.criancas || '0';
+
+        if (document.getElementById('name')) document.getElementById('name').value = dados.nome || '';
+        if (document.getElementById('email')) document.getElementById('email').value = dados.email || '';
+        if (document.getElementById('ddd')) document.getElementById('ddd').value = dados.ddd || '';
+        if (document.getElementById('telefone')) document.getElementById('telefone').value = dados.telefone || '';
+        if (document.getElementById('special-requests')) document.getElementById('special-requests').value = dados.pedidos_especiais || '';
+
+        calcularReserva();
+      }
+    }
+
+    document.getElementById('simulate-btn').addEventListener('click', () => {
+      calcularReserva();
+      salvarNoLocalStorage();
+      document.getElementById('step-1').style.display = 'none';
+      document.getElementById('step-2').style.display = 'block';
+    });
+
+    document.getElementById('guest-form').addEventListener('submit', (e) => {
+      salvarNoLocalStorage();
+    });
+
     document.getElementById('checkin').addEventListener('change', calcularReserva);
     document.getElementById('checkout').addEventListener('change', calcularReserva);
     document.getElementById('guests').addEventListener('change', calcularReserva);
     document.getElementById('children').addEventListener('change', calcularReserva);
-
-    document.getElementById('simulate-btn').addEventListener('click', () => {
-      calcularReserva();
-      document.getElementById('step-1').style.display = 'none';
-      document.getElementById('step-2').style.display = 'block';
-    });
 
     const themeToggleBtn = document.querySelector('.theme-toggle');
     const body = document.body;
@@ -364,12 +250,9 @@
     function updateThemeIcon() {
       themeToggleBtn.textContent = body.classList.contains('light-mode') ? '🌞' : '🌙';
     }
-  </script>
 
-<<<<<<< HEAD
-       
-=======
-        });
+    window.addEventListener('DOMContentLoaded', carregarDoLocalStorage);
+ 
 
         document.getElementById('proceed-to-payment').addEventListener('click', () => {
     // Captura valores dos campos do formulário
@@ -413,7 +296,7 @@
   };
 </script>
 
->>>>>>> 69761bf0161dba42703db9d53bf9b9dd73ae482b
+
 </div>
 
 </body>
