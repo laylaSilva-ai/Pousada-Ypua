@@ -75,7 +75,9 @@
       display: block;
       margin-bottom: 8px;
     }
-    input, select, textarea {
+    input,
+    select,
+    textarea {
       width: 100%;
       padding: 8px;
       margin-bottom: 15px;
@@ -238,11 +240,6 @@
   </div>
 
   <script>
-    function getPrecoDaUrl() {
-      const urlParams = new URLSearchParams(window.location.search);
-      return parseFloat(urlParams.get("preco")) || 200;
-    }
-
     function calcularReserva() {
       const checkin = document.getElementById("checkin").value;
       const checkout = document.getElementById("checkout").value;
@@ -261,8 +258,9 @@
         return;
       }
 
-      const precoPorNoite = getPrecoDaUrl();
-      const total = nights * precoPorNoite;
+      const adultRate = 200;
+      const childRate = 100;
+      const total = nights * (guests * adultRate + children * childRate);
 
       document.getElementById("nights").textContent = nights;
       document.getElementById("total-price").textContent = total.toFixed(2);
@@ -280,10 +278,51 @@
       document.getElementById("form-total").value = total.toFixed(2);
     }
 
+    function salvarNoLocalStorage() {
+      const dadosReserva = {
+        checkin: document.getElementById("checkin").value,
+        checkout: document.getElementById("checkout").value,
+        adultos: document.getElementById("guests").value,
+        criancas: document.getElementById("children").value,
+        noites: document.getElementById("nights").textContent,
+        total: document.getElementById("total-price").textContent,
+        nome: document.getElementById("name")?.value || "",
+        email: document.getElementById("email")?.value || "",
+        ddd: document.getElementById("ddd")?.value || "",
+        telefone: document.getElementById("telefone")?.value || "",
+        pedidos_especiais: document.getElementById("special-requests")?.value || "",
+      };
+      localStorage.setItem("dadosReserva", JSON.stringify(dadosReserva));
+    }
+
+    function carregarDoLocalStorage() {
+      const dados = JSON.parse(localStorage.getItem("dadosReserva"));
+      if (dados) {
+        document.getElementById("checkin").value = dados.checkin || "";
+        document.getElementById("checkout").value = dados.checkout || "";
+        document.getElementById("guests").value = dados.adultos || "1";
+        document.getElementById("children").value = dados.criancas || "0";
+
+        if (document.getElementById("name")) document.getElementById("name").value = dados.nome || "";
+        if (document.getElementById("email")) document.getElementById("email").value = dados.email || "";
+        if (document.getElementById("ddd")) document.getElementById("ddd").value = dados.ddd || "";
+        if (document.getElementById("telefone")) document.getElementById("telefone").value = dados.telefone || "";
+        if (document.getElementById("special-requests"))
+          document.getElementById("special-requests").value = dados.pedidos_especiais || "";
+
+        calcularReserva();
+      }
+    }
+
     document.getElementById("simulate-btn").addEventListener("click", () => {
       calcularReserva();
+      salvarNoLocalStorage();
       document.getElementById("step-1").style.display = "none";
       document.getElementById("step-2").style.display = "block";
+    });
+
+    document.getElementById("guest-form").addEventListener("submit", (e) => {
+      salvarNoLocalStorage();
     });
 
     document.getElementById("checkin").addEventListener("change", calcularReserva);
@@ -297,9 +336,11 @@
     const savedTheme = localStorage.getItem("theme");
     if (savedTheme) {
       body.classList.add(savedTheme);
+      updateThemeIcon();
     } else {
       const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
       body.classList.add(prefersDark ? "dark-mode" : "light-mode");
+      updateThemeIcon();
     }
 
     function toggleTheme() {
@@ -319,8 +360,9 @@
       themeToggleBtn.textContent = body.classList.contains("light-mode") ? "🌞" : "🌙";
     }
 
-    updateThemeIcon();
+    window.addEventListener("DOMContentLoaded", carregarDoLocalStorage);
 
+    // Atualização importante aqui para garantir campos vazios e datas mínimas:
     window.onload = function () {
       const today = new Date().toISOString().split("T")[0];
       const checkin = document.getElementById("checkin");
@@ -328,6 +370,8 @@
 
       checkin.setAttribute("min", today);
       checkout.setAttribute("min", today);
+
+      // Limpar valores para que fiquem vazios ao abrir
       checkin.value = "";
       checkout.value = "";
 
