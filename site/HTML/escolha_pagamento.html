@@ -1,71 +1,99 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pousada Quinta do Ypuã - Escolha o Pagamento</title>
-    <link rel="icon" type="image/png" href="/site/img/Design sem nome.png ">
-    <link rel="stylesheet" href="/site/CSS/escollhapaga.css">
-    <link rel="icon" type="image/png" href="img/Design sem nome.png">
-
-   <style>
-    body{ 
-        background-color: rgba(0, 0, 0, 0.26);
-        font-size: 20px;
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pousada Quinta do Ypuã - Escolha o Pagamento</title>
+  <link rel="icon" type="image/png" href="/site/img/Design sem nome.png">
+  <link rel="stylesheet" href="/site/CSS/escollhapaga.css">
+  
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-image: url('imagens/foto1.jpg');
+      background-size: cover;
+      background-color: rgba(0, 0, 0, 0.26);
+      font-size: 20px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
     }
-   
-   a:hover {
-    text-decoration: underline;
-    color: #b33b2e; /* Muda a cor ao passar o mouse */
-     }
 
-   
-      button:hover {
-    background-color: #9e2d26;  /* Cor de fundo ao passar o mouse (mais escuro) */
-     }
-
-     form {
-        width: 50%;
-        max-width: 1200px;
-        margin: auto;
-        padding: 20px;
-        background-color: aliceblue;
+    form {
+      width: 50%;
+      max-width: 600px;
+      margin: auto;
+      padding: 20px;
+      background-color: aliceblue;
+      border-radius: 10px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.3);
     }
-    
-    
-body {
-    font-family: Arial, sans-serif;
-    background-image: url('imagens/foto1.jpg');
-    background-size: cover;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-}
 
-   </style>
+    a {
+      display: block;
+      margin-bottom: 15px;
+      font-weight: bold;
+      color: #333;
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+      color: #b33b2e;
+    }
+
+    button {
+      padding: 10px 20px;
+      background-color: #b33b2e;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #9e2d26;
+    }
+
+    .info {
+      margin-bottom: 20px;
+    }
+  </style>
 </head>
 <body>
-<form>
+  <form>
     <h2>Escolha sua forma de pagamento:</h2><br>
-    <a href="/site/PIX/pix.html">Pagamento via Pix</a><br><br>
-    <a href="/site/HTML/pagamento_corrigido.html">Pagamento com Cartão</a><br><br>
 
-    <a href="/site/HTML/lamento.html">Boleto</a><br><br>
-    <button onclick="window.location.href='/site/HTML/reserva_corrigido.html'">Voltar para a Reserva</button>
-</div>
+    <div class="info">
+      <p><strong>Email da Reserva:</strong> <span id="email"></span></p>
+      <p><strong>Valor Total:</strong> <span id="valor"></span></p>
+    </div>
 
+    <a href="/site/PIX/pix.html">Pagamento via Pix</a>
+    <a href="/site/HTML/pagamento_corrigido.html">Pagamento via Permuta</a>
+    <a href="/site/HTML/lamento.html">Boleto</a>
+    <br>
+    <button type="button" onclick="window.location.href='/site/HTML/reserva_corrigido.html'">Voltar para a Reserva</button>
+  </form>
 
-</form>
-    <script>
-        // Função para redirecionamento após a reserva
-        window.onload = function() {
-            const valorTotal = localStorage.getItem('total');
-            if (!valorTotal) {
-                alert('Erro ao carregar dados da reserva!');
-                window.location.href = '../../reserva_corrigido.html'; // Redireciona de volta para a página de reserva
-            }
-        }
-    </script>
+  <script>
+    window.onload = function () {
+      const email = localStorage.getItem('emailReserva');
+      const valor = localStorage.getItem('valorPix');
+
+      if (!email || !valor) {
+        alert('Erro ao carregar os dados da reserva!');
+        window.location.href = '/site/HTML/reserva_corrigido.html';
+        return;
+      }
+
+      document.getElementById('email').textContent = email;
+      document.getElementById('valor').textContent = 'R$ ' + parseFloat(valor).toFixed(2);
+      
+      console.log("Email carregado:", email);
+      console.log("Valor carregado:", valor);
+    };
+  </script>
 </body>
 </html>
